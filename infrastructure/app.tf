@@ -10,6 +10,9 @@ resource "digitalocean_app" "unredundant" {
       instance_size_slug = "professional-xs"
       http_port          = 3000
 
+      build_command = "yarn build"
+      run_command = "yarn start"
+
       github {
         branch         = "main"
         deploy_on_push = true
