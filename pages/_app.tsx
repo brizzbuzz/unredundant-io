@@ -3,9 +3,9 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const debugScreens = isProd() ? "bg-gray-700" : "debug-screens bg-gray-700"
   return (
-    // TODO Way to only have debug-screens if doing local dev?
-    <div className="debug-screens bg-gray-700">
+    <div className={debugScreens}>
       <Head>
         <link rel="icon" type="image/png" sizes="32x32" href="/unredundant-blank.svg" />
         <link rel="icon" type="image/png" sizes="16x16" href="/unredundant-blank.svg" />
@@ -14,5 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     </div>
   );
 }
+
+const isProd: () => boolean = () => process.env.NODE_ENV === 'production'
 
 export default MyApp;
