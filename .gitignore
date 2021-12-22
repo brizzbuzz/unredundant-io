@@ -39,3 +39,7 @@ yarn-error.log*
 
 # Jetbrains
 .idea
+
+# Terraform
+**/.terraform.lock.hcl
+**/.terraform
