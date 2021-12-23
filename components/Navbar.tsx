@@ -24,7 +24,7 @@ export const Navbar: React.FC = () => {
       <div className="py-10 mr-10 hidden md:block">
         <Link href="/">
           <a>
-            <img src="unredundant-blank.svg" className="h-14 w-14" />
+            <img src="/unredundant-blank.svg" className="h-14 w-14" />
           </a>
         </Link>
       </div>
@@ -35,9 +35,7 @@ export const Navbar: React.FC = () => {
             .map((item) => (
               <li key={item.name} className="mr-10">
                 <Link href={item.href}>
-                  <a className="text-xl text-gray-100 hover:text-amber-500">
-                    {item.name}
-                  </a>
+                  <a className="text-xl text-gray-100 hover:text-amber-500">{item.name}</a>
                 </Link>
               </li>
             ))}

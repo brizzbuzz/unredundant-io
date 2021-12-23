@@ -1,15 +1,64 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import { Navbar } from '../components/Navbar';
+import path from 'path';
+import fs from 'fs';
+import matter from 'gray-matter';
+import Link from 'next/link';
 
-const Blog: NextPage = () => {
+type PostMetadata = {
+  title: string;
+  date: string; // todo format?
+  description: string;
+  thumbnailUrl: string;
+  tags: string[];
+};
+
+type Post = {
+  slug: string;
+  metadata: PostMetadata;
+};
+
+type BlogProps = {
+  posts: Array<Post>;
+};
+
+const Blog: NextPage<BlogProps> = ({ posts }) => {
   return (
     <div className="container mx-auto min-h-screen">
       <Navbar />
       <div className="min-h-max mx-32 my-10">
-        <p className="text-gray-200">Set up blog posts</p>
+        <div className="grid grid-cols-3 gap-4">
+          {posts.map((post, index) => (
+            <Link key={index} href={'/post/' + post.slug}>
+              <div className="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100">
+                <img src={post.metadata.thumbnailUrl} className="rounded-t-lg" />
+                <div className="p-1.5">{post.metadata.title}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps<BlogProps> = async () => {
+  const files = fs.readdirSync(path.join('posts'));
+  const posts = files.map((filename) => getPost(filename));
+  return {
+    props: {
+      posts,
+    },
+  };
+};
+
+const getPost: (filename: string) => Post = (filename) => {
+  const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8');
+  const { data: frontMatter } = matter(markdownWithMeta);
+  return {
+    metadata: frontMatter as PostMetadata,
+    slug: filename.split('.')[0],
+  };
 };
 
 export default Blog;
