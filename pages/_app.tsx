@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import {Router} from "next/router";
 import NProgress from 'nprogress';
-import 'nprogress/npgitrogress.css';
+import 'nprogress/nprogress.css';
 
 // Bind Loading Events
 Router.events.on('routeChangeStart', () => NProgress.start());
