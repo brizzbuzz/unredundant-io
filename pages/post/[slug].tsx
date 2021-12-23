@@ -7,12 +7,16 @@ import matter from 'gray-matter';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { ParsedUrlQuery } from 'querystring';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote/dist/types';
+import {Navbar} from "../../components/Navbar";
 
 const PostPage: NextPage<PostProps> = ({ metadata: { title }, mdxSource }) => {
   return (
-    <div>
+    <div className="container mx-auto min-h-screen">
+    <Navbar />
+    <div className="min-h-max mx-32 my-10">
       <h1>{title}</h1>
       <MDXRemote {...mdxSource} components={{ SyntaxHighlighter }} />
+    </div>
     </div>
   );
 };

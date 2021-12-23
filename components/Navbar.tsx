@@ -24,7 +24,7 @@ export const Navbar: React.FC = () => {
       <div className="py-10 mr-10 hidden md:block">
         <Link href="/">
           <a>
-            <img src="unredundant-blank.svg" className="h-14 w-14" />
+            <img src="/unredundant-blank.svg" className="h-14 w-14" />
           </a>
         </Link>
       </div>
