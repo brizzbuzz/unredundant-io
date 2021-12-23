@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="icon" type="image/png" sizes="32x32" href="/unredundant-blank.svg" />
         <link rel="icon" type="image/png" sizes="16x16" href="/unredundant-blank.svg" />
+        <title>Unredundant</title>
       </Head>
       <Component {...pageProps} />
     </div>
