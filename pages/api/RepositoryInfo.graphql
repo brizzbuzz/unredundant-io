@@ -1,0 +1,12 @@
+fragment RepositoryInfo on Repository {
+    nameWithOwner
+    stargazerCount
+    description
+    latestRelease {
+        name
+        createdAt
+    }
+    primaryLanguage {
+        name
+    }
+}

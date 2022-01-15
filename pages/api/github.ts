@@ -1,5 +1,6 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { RepositoryInfoFragment, RepositoryInfoFragmentDoc } from '../../generated/graphql';
 
 const githubClient = new ApolloClient({
   uri: 'https://api.github.com/graphql',
@@ -12,29 +13,23 @@ const githubClient = new ApolloClient({
 export type RepositoryInfo = {
   repo: string;
   stars: number;
-  language: string;
+  language: string | null;
   release: string | null;
+  description: string;
+  role: string;
 };
 
-const REPOSITORY_INFO = gql`
-  fragment RepositoryInfo on Repository {
-    nameWithOwner
-    stargazerCount
-    latestRelease {
-      name
-      createdAt
-    }
-    primaryLanguage {
-      name
-    }
-  }
-`;
+type GetProjectsQuery = {
+  kompendium: RepositoryInfoFragment;
+  satisfaketion: RepositoryInfoFragment;
+  sourdoughGradle: RepositoryInfoFragment;
+};
 
 export async function getProjectData() {
-  const { data } = await githubClient.query({
+  const { data } = await githubClient.query<GetProjectsQuery>({
     query: gql`
-      ${REPOSITORY_INFO}
-      query GetRepositories {
+      ${RepositoryInfoFragmentDoc}
+      query GetProjects {
         kompendium: repository(owner: "bkbnio", name: "kompendium") {
           ...RepositoryInfo
         }
@@ -47,27 +42,28 @@ export async function getProjectData() {
       }
     `,
   });
+
   return [
-    {
-      language: data.kompendium.primaryLanguage.name,
-      stars: data.kompendium.stargazerCount,
-      repo: data.kompendium.nameWithOwner,
-      release: data.kompendium.latestRelease.name,
-    },
-    {
-      language: data.satisfaketion.primaryLanguage.name,
-      stars: data.satisfaketion.stargazerCount,
-      repo: data.satisfaketion.nameWithOwner,
-      release: data.satisfaketion.latestRelease?.name ?? null,
-    },
-    {
-      language: data.sourdoughGradle.primaryLanguage.name,
-      stars: data.sourdoughGradle.stargazerCount,
-      repo: data.sourdoughGradle.nameWithOwner,
-      release: data.sourdoughGradle.latestRelease?.name ?? null,
-    },
+    infoFragmentToResponse(data.kompendium),
+    infoFragmentToResponse(data.satisfaketion, 'A funky faker implementation aimed at leaving you fully satisfied'),
+    infoFragmentToResponse(data.sourdoughGradle),
   ];
 }
+
+const infoFragmentToResponse = (
+  fragment: RepositoryInfoFragment,
+  description: string | null = null,
+  role = 'Core Maintainer'
+): RepositoryInfo => {
+  return {
+    description: description ?? fragment.description ?? '',
+    language: fragment.primaryLanguage?.name ?? null,
+    release: fragment.latestRelease?.name ?? null,
+    role: role,
+    stars: fragment.stargazerCount,
+    repo: fragment.nameWithOwner,
+  };
+};
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Array<RepositoryInfo>>) => {
   const jsonData = await getProjectData();
