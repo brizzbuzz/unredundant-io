@@ -43,3 +43,6 @@ yarn-error.log*
 # Terraform
 **/.terraform.lock.hcl
 **/.terraform
+
+# GraphQL Schemas
+github-schema.graphql
