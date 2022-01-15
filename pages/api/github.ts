@@ -23,6 +23,8 @@ type GetProjectsQuery = {
   kompendium: RepositoryInfoFragment;
   satisfaketion: RepositoryInfoFragment;
   sourdoughGradle: RepositoryInfoFragment;
+  sourdoughKotlin: RepositoryInfoFragment;
+  skelegro: RepositoryInfoFragment;
 };
 
 export async function getProjectData() {
@@ -39,14 +41,22 @@ export async function getProjectData() {
         sourdoughGradle: repository(owner: "bkbnio", name: "sourdough-gradle") {
           ...RepositoryInfo
         }
+        sourdoughKotlin: repository(owner: "bkbnio", name: "sourdough-kt") {
+          ...RepositoryInfo
+        }
+        skelegro: repository(owner: "bkbnio", name: "skelegro") {
+          ...RepositoryInfo
+        }
       }
     `,
   });
 
   return [
-    infoFragmentToResponse(data.kompendium),
-    infoFragmentToResponse(data.satisfaketion, 'A funky faker implementation aimed at leaving you fully satisfied'),
-    infoFragmentToResponse(data.sourdoughGradle),
+    infoFragmentToResponse(data.kompendium, 'Ktor OpenAPI Generator'),
+    infoFragmentToResponse(data.satisfaketion, 'A Funky Faker'),
+    infoFragmentToResponse(data.sourdoughGradle, 'Great Gradle Plugins'),
+    infoFragmentToResponse(data.sourdoughKotlin, 'Repo Template for Kotlin JVM'),
+    infoFragmentToResponse(data.skelegro, 'Wacky Assortment of Kotlin DSLs'),
   ];
 }
 
