@@ -1,0 +1,4 @@
+{
+  "name": "GitHub GraphQL Schema",
+  "schemaPath": "github_schema.graphql"
+}

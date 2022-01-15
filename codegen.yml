@@ -1,0 +1,5 @@
+schema: schemas/github_schema.graphql
+generates:
+  pages/api/github-types.generated.ts:
+    plugins:
+      - typescript-apollo-client-helpers
