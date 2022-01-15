@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { currentTab, Navbar } from '../components/Navbar';
+import { currentTab } from '../components/Navbar';
 import { useRecoilState } from 'recoil';
 import { PageContainer } from '../components/PageContainer';
 

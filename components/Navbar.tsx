@@ -5,7 +5,7 @@ import { atom, useRecoilState } from 'recoil';
 
 type NavigationIem = {
   name: string;
-  icon: (props: any) => JSX.Element;
+  icon: (props: React.ComponentProps<'svg'>) => JSX.Element;
   href: string;
   current: boolean;
   hidden?: boolean;
@@ -31,7 +31,7 @@ export const Navbar: React.FC = () => {
   };
 
   // TODO Make name enum?
-  let navigationItems: Array<NavigationIem> = [
+  const navigationItems: Array<NavigationIem> = [
     { name: 'Home', icon: HomeIcon, href: '/', current: false },
     { name: 'Blog', icon: RssIcon, href: '/blog', current: false },
     { name: 'Projects', icon: FolderOpenIcon, href: '/projects', current: false },

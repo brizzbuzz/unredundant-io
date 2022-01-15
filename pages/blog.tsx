@@ -1,4 +1,5 @@
 import type { GetStaticProps, NextPage } from 'next';
+import Image from 'next/image';
 import { currentTab } from '../components/Navbar';
 import path from 'path';
 import fs from 'fs';
@@ -33,9 +34,9 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
       <div className="min-h-max mx-32 my-10">
         <div className="grid grid-cols-3 gap-4">
           {posts.map((post, index) => (
-            <Link key={index} href={'/post/' + post.slug}>
+            <Link key={index} href={'/post/' + post.slug} passHref>
               <div className="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100">
-                <img src={post.metadata.thumbnailUrl} className="rounded-t-lg" />
+                <Image src={post.metadata.thumbnailUrl} className="rounded-t-lg" alt={post.metadata.title} />
                 <div className="p-1.5">{post.metadata.title}</div>
               </div>
             </Link>

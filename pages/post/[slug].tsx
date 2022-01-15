@@ -6,7 +6,6 @@ import path from 'path';
 import matter from 'gray-matter';
 import { ParsedUrlQuery } from 'querystring';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote/dist/types';
-import { Navbar } from '../../components/Navbar';
 import SyntaxHighlighterProps, { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { PageContainer } from '../../components/PageContainer';
