@@ -1,6 +1,6 @@
 import { BriefcaseIcon, CameraIcon, FolderOpenIcon, HomeIcon, MailIcon, RssIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { atom, useRecoilState } from 'recoil';
 
 type NavigationIem = {
