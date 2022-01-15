@@ -36,8 +36,14 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
           {posts.map((post, index) => (
             <Link key={index} href={'/post/' + post.slug} passHref>
               <div className="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100">
-                <Image src={post.metadata.thumbnailUrl} className="rounded-t-lg" alt={post.metadata.title} />
-                <div className="p-1.5">{post.metadata.title}</div>
+                <Image
+                  src={post.metadata.thumbnailUrl}
+                  className="rounded-t-lg"
+                  alt={post.metadata.title}
+                  width="300"
+                  height="200"
+                />
+                <div className="p-1.5 text-offset">{post.metadata.title}</div>
               </div>
             </Link>
           ))}

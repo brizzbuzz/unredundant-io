@@ -10,7 +10,7 @@ const Contact: NextPage = () => {
   return (
     <PageContainer>
       <div className="min-h-max mx-32 my-10">
-        <p className="text-gray-200">Add a contact form</p>
+        <p className="text-offset">Add a contact form</p>
       </div>
     </PageContainer>
   );

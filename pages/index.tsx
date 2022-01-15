@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   return (
     <PageContainer>
       <div className="min-h-max mx-32 my-10">
-        <p className="text-gray-200">Fill out some personal info</p>
+        <p className="text-offset">Fill out some personal info</p>
       </div>
     </PageContainer>
   );
