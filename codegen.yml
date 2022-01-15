@@ -1,7 +1,13 @@
 overwrite: true
-schema: "schemas/github-schema.graphql"
+schema:
+  - "https://api.github.com/graphql":
+      headers:
+        Authorization: "bearer ${GITHUB_TOKEN}"
 documents: "pages/**/*.graphql"
 generates:
+  schemas/github.graphql:
+    plugins:
+      - schema-ast
   generated/graphql.tsx:
     plugins:
       - "typescript"
