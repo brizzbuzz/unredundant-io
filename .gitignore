@@ -44,5 +44,5 @@ yarn-error.log*
 **/.terraform.lock.hcl
 **/.terraform
 
-# GraphQL Schemas
-github-schema.graphql
+# Introspected GraphQL Schemas
+.schemas
