@@ -1,10 +1,11 @@
 import type { GetStaticProps, NextPage } from 'next';
-import { currentTab, Navbar } from '../components/Navbar';
+import { currentTab } from '../components/Navbar';
 import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
 import Link from 'next/link';
 import { useRecoilState } from 'recoil';
+import { PageContainer } from '../components/PageContainer';
 
 type PostMetadata = {
   title: string;
@@ -28,8 +29,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
   setCurrent('Blog');
 
   return (
-    <div className="container mx-auto min-h-screen">
-      <Navbar />
+    <PageContainer>
       <div className="min-h-max mx-32 my-10">
         <div className="grid grid-cols-3 gap-4">
           {posts.map((post, index) => (
@@ -42,7 +42,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
           ))}
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 };
 

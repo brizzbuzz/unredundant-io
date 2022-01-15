@@ -47,8 +47,8 @@ export const Navbar: React.FC = () => {
   });
 
   return (
-    <div className="grid place-items-center w-screen">
-      <ul className="flex py-14 px-5">
+    <div className="grid place-items-center mx-auto w-screen">
+      <ul className="flex py-14">
         {navigationItems
           .filter((item) => item.hidden !== true)
           .map((item) => (
