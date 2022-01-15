@@ -1,9 +1,10 @@
 import type { GetStaticProps, NextPage } from 'next';
-import { Navbar } from '../components/Navbar';
+import { currentTab, Navbar } from '../components/Navbar';
 import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
 import Link from 'next/link';
+import { useRecoilState } from 'recoil';
 
 type PostMetadata = {
   title: string;
@@ -23,6 +24,9 @@ type BlogProps = {
 };
 
 const Blog: NextPage<BlogProps> = ({ posts }) => {
+  const [, setCurrent] = useRecoilState(currentTab);
+  setCurrent('Blog');
+
   return (
     <div className="container mx-auto min-h-screen">
       <Navbar />
