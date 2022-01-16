@@ -72,9 +72,6 @@ const TimelineContentBlock: React.FC<TimelineEntry> = ({ title, company, date })
       <p className="font-semibold text-lg mb-1">
         {title} @ {company} | {date}
       </p>
-      <p className="leading-tight text-justify">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, quaerat?
-      </p>
     </div>
   );
 };
