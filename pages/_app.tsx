@@ -12,7 +12,7 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const debugScreens = isProd() ? 'bg-backdrop w-screen' : 'debug-screens bg-backdrop w-screen';
+  const debugScreens = isProd() ? 'w-screen' : 'debug-screens w-screen';
   return (
     <RecoilRoot>
       <div className={debugScreens}>
