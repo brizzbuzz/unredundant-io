@@ -69,7 +69,7 @@ const RightTimelineEntry: React.FC<TimelineEntry> = ({ title, company, date }) =
 const TimelineContentBlock: React.FC<TimelineEntry> = ({ title, company, date }) => {
   return (
     <div>
-      <p className="font-semibold text-lg mb-1">
+      <p className="font-semibold text-lg mb-1 text-backdrop">
         {title} @ {company} | {date}
       </p>
     </div>
