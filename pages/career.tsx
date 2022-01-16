@@ -34,11 +34,11 @@ const timelineEntries: Array<EntryDetails> = [
   },
 ];
 
-const createLeftTimelineEntry = (entry: TimelineEntry) => {
+const LeftTimelineEntry: React.FC<TimelineEntry> = ({ title, company, date }) => {
   return (
     <div className="flex flex-row-reverse md:contents">
       <div className="bg-accent-dark col-start-1 col-end-5 p-4 rounded-xl my-4 ml-auto shadow-md">
-        <TimelineContentBlock title={entry.title} company={entry.company} date={entry.date} />
+        <TimelineContentBlock title={title} company={company} date={date} />
       </div>
       <div className="col-start-5 col-end-6 md:mx-auto relative mr-10">
         <div className="h-full w-6 flex items-center justify-center">
@@ -50,7 +50,7 @@ const createLeftTimelineEntry = (entry: TimelineEntry) => {
   );
 };
 
-const createRightTimelineEntry = (entry: TimelineEntry) => {
+const RightTimelineEntry: React.FC<TimelineEntry> = ({ title, company, date }) => {
   return (
     <div className="flex md:contents">
       <div className="col-start-5 col-end-6 mr-10 md:mx-auto relative">
@@ -60,7 +60,7 @@ const createRightTimelineEntry = (entry: TimelineEntry) => {
         <div className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-accent-light shadow" />
       </div>
       <div className="bg-accent-dark col-start-6 col-end-10 p-4 rounded-xl my-4 mr-auto shadow-md">
-        <TimelineContentBlock title={entry.title} company={entry.company} date={entry.date} />
+        <TimelineContentBlock title={title} company={company} date={date} />
       </div>
     </div>
   );
@@ -87,9 +87,21 @@ const Career: NextPage = () => {
           <div className="flex flex-col md:grid grid-cols-9 mx-auto p-2 text-blue-50">
             {timelineEntries.map((details) => {
               if (details.side == EntrySide.RIGHT) {
-                return createRightTimelineEntry(details.entry);
+                return (
+                  <RightTimelineEntry
+                    title={details.entry.title}
+                    company={details.entry.company}
+                    date={details.entry.date}
+                  />
+                );
               } else {
-                return createLeftTimelineEntry(details.entry);
+                return (
+                  <LeftTimelineEntry
+                    title={details.entry.title}
+                    company={details.entry.company}
+                    date={details.entry.date}
+                  />
+                );
               }
             })}
           </div>
