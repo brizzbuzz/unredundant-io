@@ -1,7 +1,14 @@
-import { BriefcaseIcon, CameraIcon, FolderOpenIcon, HomeIcon, MailIcon, RssIcon } from '@heroicons/react/outline';
-import Link from 'next/link';
+import { CameraIcon, FolderOpenIcon, HomeIcon, MailIcon, RssIcon } from '@heroicons/react/outline';
+import { Col, Container, Row } from '@nextui-org/react';
 import React from 'react';
 import { atom, useRecoilState } from 'recoil';
+import { styled } from '@stitches/react';
+import { Text } from '@nextui-org/react';
+import Link from 'next/link';
+
+const NavItem = styled('div', {
+  padding: '10px',
+});
 
 type NavigationIem = {
   name: string;
@@ -39,18 +46,32 @@ export const Navbar: React.FC = () => {
   });
 
   return (
-    <div>
-      <ul>
+    <Container>
+      <Row>
         {navigationItems
           .filter((item) => item.hidden !== true)
           .map((item) => (
-            <li key={item.name}>
-              <Link href={item.href}>
-                <a onClick={() => onChange(item.name)}>{item.name}</a>
-              </Link>
-            </li>
+            <Col key={item.name}>
+              <NavItem>
+                <Link href={item.href}>
+                  <a onClick={() => onChange(item.name)}>
+                    <Text
+                      h1
+                      size={20}
+                      css={{
+                        textAlign: 'center',
+                        textGradient: '45deg, $blue500 -20%, $pink500 50%',
+                      }}
+                      weight="bold"
+                    >
+                      {item.name}
+                    </Text>
+                  </a>
+                </Link>
+              </NavItem>
+            </Col>
           ))}
-      </ul>
-    </div>
+      </Row>
+    </Container>
   );
 };
