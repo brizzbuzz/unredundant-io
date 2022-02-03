@@ -3,7 +3,7 @@ import { currentTab } from '../components/Navbar';
 import { useRecoilState } from 'recoil';
 import { PageContainer } from '../components/PageContainer';
 import { getProjectData, RepositoryInfo } from './api/github';
-import { StarIcon } from '@heroicons/react/outline';
+import { Card, Grid, Link, Text } from '@nextui-org/react';
 
 type ProjectProperties = {
   data: Array<RepositoryInfo>;
@@ -15,20 +15,23 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
 
   return (
     <PageContainer>
-      <div>
-        <div>
-          {data.map((project, index) => (
-            <div key={index}>
-              <p>{project.repo}</p>
-              <p>
-                <StarIcon />
-                {project.stars}
-              </p>
-              <p>{project.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <Grid.Container gap={2} style={{ marginLeft: '100px', marginTop: '50px' }}>
+        {data.map((project, index) => (
+          <Grid key={index}>
+            <Card hoverable css={{ w: '330px' }} color="gradient">
+              <Text h4>{project.repo}</Text>
+              <Text>{project.description}</Text>
+              <Card.Footer>
+                <Link target="_blank" href={`https://github.com/${project.repo}`}>
+                  <Text h5 css={{ color: '$white' }}>
+                    View source code
+                  </Text>
+                </Link>
+              </Card.Footer>
+            </Card>
+          </Grid>
+        ))}
+      </Grid.Container>
     </PageContainer>
   );
 };

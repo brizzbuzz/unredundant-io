@@ -36,7 +36,7 @@ export const Navbar: React.FC = () => {
     { name: 'Blog', icon: RssIcon, href: '/blog', current: false },
     { name: 'Projects', icon: FolderOpenIcon, href: '/projects', current: false },
     { name: 'Photography', icon: CameraIcon, href: '/photography', current: false, hidden: true },
-    { name: 'Contact', icon: MailIcon, href: '/contact', current: false },
+    { name: 'Contact', icon: MailIcon, href: '/contact', current: false, hidden: true },
   ];
 
   navigationItems.forEach((item) => {
@@ -47,7 +47,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <Container>
-      <Row>
+      <Row style={{ marginTop: '50px' }}>
         {navigationItems
           .filter((item) => item.hidden !== true)
           .map((item) => (

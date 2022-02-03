@@ -1,12 +1,12 @@
 import type { GetStaticProps, NextPage } from 'next';
-import Image from 'next/image';
 import { currentTab } from '../components/Navbar';
 import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
-import Link from 'next/link';
 import { useRecoilState } from 'recoil';
 import { PageContainer } from '../components/PageContainer';
+import { Card, Col, Grid, Text } from '@nextui-org/react';
+import Link from 'next/link';
 
 type PostMetadata = {
   title: string;
@@ -31,18 +31,27 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 
   return (
     <PageContainer>
-      <div>
-        <div>
-          {posts.map((post, index) => (
-            <Link key={index} href={'/post/' + post.slug} passHref>
-              <div>
-                <Image src={post.metadata.thumbnailUrl} alt={post.metadata.title} width="300" height="200" />
-                <div>{post.metadata.title}</div>
-              </div>
+      <Grid.Container style={{ marginTop: '50px' }} gap={2} justify="center">
+        {posts.map((post, index) => (
+          <Grid xs={12} sm={2} key={index}>
+            <Link href={'/post/' + post.slug} passHref>
+              <Card cover clickable hoverable>
+                <Card.Header css={{ position: 'absolute', zIndex: 1, top: 5 }}>
+                  <Col>
+                    <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
+                      {post.metadata.title}
+                    </Text>
+                    <Text h4 color="white">
+                      {post.metadata.description}
+                    </Text>
+                  </Col>
+                </Card.Header>
+                <Card.Image src={post.metadata.thumbnailUrl} height={240} width="100%" alt="Card image background" />
+              </Card>
             </Link>
-          ))}
-        </div>
-      </div>
+          </Grid>
+        ))}
+      </Grid.Container>
     </PageContainer>
   );
 };
