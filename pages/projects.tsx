@@ -15,10 +15,10 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
 
   return (
     <PageContainer>
-      <Grid.Container gap={2} style={{ marginLeft: '100px', marginTop: '50px' }}>
+      <Grid.Container style={{ marginTop: '25px' }} gap={2} justify="center">
         {data.map((project, index) => (
-          <Grid key={index}>
-            <Card hoverable css={{ w: '330px' }} color="gradient">
+          <Grid key={index} xs={12} sm={4}>
+            <Card hoverable color="gradient">
               <Text h4>{project.repo}</Text>
               <Text>{project.description}</Text>
               <Card.Footer>

@@ -31,7 +31,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 
   return (
     <PageContainer>
-      <Grid.Container style={{ marginTop: '50px' }} gap={2} justify="center">
+      <Grid.Container style={{ marginTop: '25px' }} gap={2} justify="center">
         {posts.map((post, index) => (
           <Grid xs={12} sm={2} key={index}>
             <Link href={'/post/' + post.slug} passHref>
