@@ -1,12 +1,12 @@
 import type { GetStaticProps, NextPage } from 'next';
-import Image from 'next/image';
 import { currentTab } from '../components/Navbar';
 import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
-import Link from 'next/link';
 import { useRecoilState } from 'recoil';
 import { PageContainer } from '../components/PageContainer';
+import { Card, Col, Grid, Text } from '@nextui-org/react';
+import Link from 'next/link';
 
 type PostMetadata = {
   title: string;
@@ -31,24 +31,27 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 
   return (
     <PageContainer>
-      <div className="min-h-max mx-32 my-10">
-        <div className="grid grid-cols-3 gap-4">
-          {posts.map((post, index) => (
-            <Link key={index} href={'/post/' + post.slug} passHref>
-              <div className="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100">
-                <Image
-                  src={post.metadata.thumbnailUrl}
-                  className="rounded-t-lg"
-                  alt={post.metadata.title}
-                  width="300"
-                  height="200"
-                />
-                <div className="p-1.5 text-offset">{post.metadata.title}</div>
-              </div>
+      <Grid.Container style={{ marginTop: '50px' }} gap={2} justify="center">
+        {posts.map((post, index) => (
+          <Grid xs={12} sm={2} key={index}>
+            <Link href={'/post/' + post.slug} passHref>
+              <Card cover clickable hoverable>
+                <Card.Header css={{ position: 'absolute', zIndex: 1, top: 5 }}>
+                  <Col>
+                    <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
+                      {post.metadata.title}
+                    </Text>
+                    <Text h4 color="white">
+                      {post.metadata.description}
+                    </Text>
+                  </Col>
+                </Card.Header>
+                <Card.Image src={post.metadata.thumbnailUrl} height={240} width="100%" alt="Card image background" />
+              </Card>
             </Link>
-          ))}
-        </div>
-      </div>
+          </Grid>
+        ))}
+      </Grid.Container>
     </PageContainer>
   );
 };
