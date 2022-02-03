@@ -1113,7 +1113,7 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.0.10.tgz#5c0ba98b695c4be44d8793aff42971a0dac65c2d"
   integrity sha512-oUIWRKd24jFLRWUYO1CZmML5+32BcpVfqhimGaaZIXcOkfQW+iqiAzdqsv688zaGtyKGeB9ZtiK3NDf+Q0v+Vw==
 
-"@nextui-org/react@^1.0.2-beta.3":
+"@nextui-org/react@1.0.2-beta.3":
   version "1.0.2-beta.3"
   resolved "https://registry.yarnpkg.com/@nextui-org/react/-/react-1.0.2-beta.3.tgz#d224654aa54a9b316922fdfacdd79d8ffa1d9797"
   integrity sha512-YkAXBc4f3Qfzf409BFZi9MAKj0lWArTb1L2ZASAKoBQKsxtRbVTko18Losjsjun/WwK4X8RiR9e8XlzYPm2RZA==
@@ -4179,7 +4179,7 @@ next-mdx-remote@3.0.8:
     esbuild "^0.12.9"
     pkg-dir "^5.0.0"
 
-next-themes@^0.0.15:
+next-themes@0.0.15:
   version "0.0.15"
   resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.0.15.tgz#ab0cee69cd763b77d41211f631e108beab39bf7d"
   integrity sha512-LTmtqYi03c4gMTJmWwVK9XkHL7h0/+XrtR970Ujvtu3s0kZNeJN24aJsi4rkZOI8i19+qq6f8j+8Duwy5jqcrQ==
