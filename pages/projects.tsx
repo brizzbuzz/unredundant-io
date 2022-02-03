@@ -15,16 +15,16 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
 
   return (
     <PageContainer>
-      <div className="container mx-auto">
-        <div className="grid gap-10 grid-cols-2 lg:grid-cols-4">
+      <div>
+        <div>
           {data.map((project, index) => (
-            <div key={index} className="bg-rich rounded-lg shadow-2xl p-4">
-              <p className="text-lg text-accent-dark text-center">{project.repo}</p>
-              <p className="text-pop text-center">
-                <StarIcon className="mr-1 inline align-middle h-4" />
+            <div key={index}>
+              <p>{project.repo}</p>
+              <p>
+                <StarIcon />
                 {project.stars}
               </p>
-              <p className="m-4 text-sm text-offset text-center">{project.description}</p>
+              <p>{project.description}</p>
             </div>
           ))}
         </div>

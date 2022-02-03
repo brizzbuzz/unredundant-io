@@ -31,19 +31,13 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 
   return (
     <PageContainer>
-      <div className="min-h-max mx-32 my-10">
-        <div className="grid grid-cols-3 gap-4">
+      <div>
+        <div>
           {posts.map((post, index) => (
             <Link key={index} href={'/post/' + post.slug} passHref>
-              <div className="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100">
-                <Image
-                  src={post.metadata.thumbnailUrl}
-                  className="rounded-t-lg"
-                  alt={post.metadata.title}
-                  width="300"
-                  height="200"
-                />
-                <div className="p-1.5 text-offset">{post.metadata.title}</div>
+              <div>
+                <Image src={post.metadata.thumbnailUrl} alt={post.metadata.title} width="300" height="200" />
+                <div>{post.metadata.title}</div>
               </div>
             </Link>
           ))}

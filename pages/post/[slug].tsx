@@ -12,7 +12,7 @@ import { PageContainer } from '../../components/PageContainer';
 
 const syntaxHighlighter = (props: SyntaxHighlighterProps) => {
   return (
-    <div className="max-w-screen-lg">
+    <div>
       <SyntaxHighlighter style={dark} {...props} />
     </div>
   );
@@ -23,8 +23,8 @@ const components = { SyntaxHighlighter: syntaxHighlighter };
 const PostPage: NextPage<PostProps> = ({ metadata: { title }, mdxSource }) => {
   return (
     <PageContainer>
-      <div className="min-h-max mx-32 my-10">
-        <p className="text-amber-500 text-3xl text-center mb-10">{title}</p>
+      <div>
+        <p>{title}</p>
         <MDXRemote {...mdxSource} components={components} />
       </div>
     </PageContainer>
