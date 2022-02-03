@@ -38,7 +38,6 @@
     "@types/react-syntax-highlighter": "13.5.2",
     "@typescript-eslint/eslint-plugin": "5.10.2",
     "@typescript-eslint/parser": "5.10.2",
-    "autoprefixer": "10.4.2",
     "dotenv": "14.3.2",
     "dotenv-cli": "4.1.1",
     "eslint": "8.8.0",
