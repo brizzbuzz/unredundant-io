@@ -9,6 +9,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote/dist/types';
 import { PageContainer } from '../../components/PageContainer';
 import { Container, Text } from '@nextui-org/react';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const rehypePrism = require('@mapbox/rehype-prism');
 
 const PostPage: NextPage<PostProps> = ({ metadata: { title, date }, mdxSource }) => {
