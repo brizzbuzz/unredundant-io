@@ -8,8 +8,8 @@ import { ParsedUrlQuery } from 'querystring';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote/dist/types';
 import { PageContainer } from '../../components/PageContainer';
 import { Container, Text } from '@nextui-org/react';
-// @ts-ignore
-import rehypePrism from '@mapbox/rehype-prism';
+
+const rehypePrism = require('@mapbox/rehype-prism');
 
 const PostPage: NextPage<PostProps> = ({ metadata: { title, date }, mdxSource }) => {
   return (
