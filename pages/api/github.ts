@@ -10,8 +10,13 @@ const githubClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+type RepositoryNameInfo = {
+  owner: string;
+  name: string;
+};
+
 export type RepositoryInfo = {
-  repo: string;
+  repo: RepositoryNameInfo;
   stars: number;
   language: string | null;
   release: string | null;
@@ -25,6 +30,7 @@ type GetProjectsQuery = {
   sourdoughGradle: RepositoryInfoFragment;
   sourdoughKotlin: RepositoryInfoFragment;
   skelegro: RepositoryInfoFragment;
+  unredundantio: RepositoryInfoFragment;
 };
 
 export async function getProjectData() {
@@ -47,6 +53,9 @@ export async function getProjectData() {
         skelegro: repository(owner: "bkbnio", name: "skelegro") {
           ...RepositoryInfo
         }
+        unredundantio: repository(owner: "unredundant", name: "unredundant-io") {
+          ...RepositoryInfo
+        }
       }
     `,
   });
@@ -57,6 +66,7 @@ export async function getProjectData() {
     infoFragmentToResponse(data.sourdoughGradle, 'Great Gradle Plugins'),
     infoFragmentToResponse(data.sourdoughKotlin, 'Repo Template for Kotlin JVM'),
     infoFragmentToResponse(data.skelegro, 'Wacky Assortment of Kotlin DSLs'),
+    infoFragmentToResponse(data.unredundantio, 'This Portfolio Site'),
   ];
 }
 
@@ -71,7 +81,10 @@ const infoFragmentToResponse = (
     release: fragment.latestRelease?.name ?? null,
     role: role,
     stars: fragment.stargazerCount,
-    repo: fragment.nameWithOwner,
+    repo: {
+      name: fragment.name,
+      owner: fragment.owner.login,
+    },
   };
 };
 

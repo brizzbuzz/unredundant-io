@@ -22,10 +22,10 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
           .map((project, index) => (
             <Grid key={index} xs={12} sm={2}>
               <Card hoverable color="gradient">
-                <Text h4>{project.repo}</Text>
+                <Text h4>{project.repo.name}</Text>
                 <Text>{project.description}</Text>
                 <Card.Footer>
-                  <Link target="_blank" href={`https://github.com/${project.repo}`}>
+                  <Link target="_blank" href={`https://github.com/${project.repo.owner}/${project.repo.name}`}>
                     <Text h5 css={{ color: '$white' }}>
                       View source code
                     </Text>

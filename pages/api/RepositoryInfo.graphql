@@ -1,4 +1,8 @@
 fragment RepositoryInfo on Repository {
+    name
+    owner {
+        login
+    }
     nameWithOwner
     stargazerCount
     description
