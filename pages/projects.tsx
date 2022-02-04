@@ -15,7 +15,7 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
 
   return (
     <PageContainer>
-      <Grid.Container style={{ marginTop: '25px' }} gap={2} justify="center">
+      <Grid.Container style={{ padding: '25px' }} gap={2} justify="center">
         {data
           .sort((a, b) => a.stars - b.stars)
           .reverse()
