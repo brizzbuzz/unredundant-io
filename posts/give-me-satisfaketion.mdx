@@ -1,0 +1,42 @@
+---
+title: Give Me Satisfaketion
+date: "2022-02-03"
+description: Writing a Pure Kotlin Data Faker
+thumbnailUrl: 'post/give-me-satisfaketion/faker.jpeg'
+publish: false
+tags: ['Software', 'Kotlin']
+---
+
+At some point, every developer out there as had the need to get their hands on some dummy data.  More often than not,
+that data, be it in a test, in a script, etc. that data takes the form of something like the following
+
+```kotlin
+val testerino = MyAwesomeClass(
+  name = "hi",
+  date = LocalDate(2022, 1, 1),
+  reason = "potato"
+  age = 1337
+)
+```
+
+This is boring at best, and potentially dangerous at worst.  If we rely on dumb data to test our code, we expose ourselves
+to bugs via oversight and unidentified biases.  Much in the same vein as [property testing](https://en.wikipedia.org/wiki/Property_testing),
+we can gain increased confidence in our tests by exposing them to a larger range of potential inputs.
+
+With a bit of reasoning providing wind in our sails, let's see what's already out there!
+
+## Kotlin Faker
+
+A quick google search for a pure Kotlin data faker will likely lead you to serpro69's 😏 [kotlin-faker](https://github.com/serpro69/kotlin-faker).
+
+## Satisfaketion
+
+TODO
+
+### Generators and Mutators
+
+TODO
+
+## What's Next?
+
+TODO

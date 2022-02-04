@@ -16,21 +16,24 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
   return (
     <PageContainer>
       <Grid.Container style={{ marginTop: '25px' }} gap={2} justify="center">
-        {data.map((project, index) => (
-          <Grid key={index} xs={12} sm={2}>
-            <Card hoverable color="gradient">
-              <Text h4>{project.repo}</Text>
-              <Text>{project.description}</Text>
-              <Card.Footer>
-                <Link target="_blank" href={`https://github.com/${project.repo}`}>
-                  <Text h5 css={{ color: '$white' }}>
-                    View source code
-                  </Text>
-                </Link>
-              </Card.Footer>
-            </Card>
-          </Grid>
-        ))}
+        {data
+          .sort((a, b) => a.stars - b.stars)
+          .reverse()
+          .map((project, index) => (
+            <Grid key={index} xs={12} sm={2}>
+              <Card hoverable color="gradient">
+                <Text h4>{project.repo}</Text>
+                <Text>{project.description}</Text>
+                <Card.Footer>
+                  <Link target="_blank" href={`https://github.com/${project.repo}`}>
+                    <Text h5 css={{ color: '$white' }}>
+                      View source code
+                    </Text>
+                  </Link>
+                </Card.Footer>
+              </Card>
+            </Grid>
+          ))}
       </Grid.Container>
     </PageContainer>
   );

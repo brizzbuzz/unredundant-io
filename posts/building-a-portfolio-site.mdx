@@ -1,0 +1,91 @@
+---
+title: Building a Portfolio Site
+date: "2022-02-02"
+description: A Backend Dev Walks into a Web
+thumbnailUrl: '/post/building-a-portfolio-site/computer.jpeg'
+publish: false
+tags: ['Software', 'NextJS', 'MDX', 'Front End']
+---
+
+Building a portfolio site is a rite of passage for many developers.  In days past, I myself have attempted to write
+one on _at least_ 10 occasions, all of which were varying degrees of hideous failures.  I believe my
+first attempt was around 2013, and I desperately wish I had the code (or at least screenshots).  It would be the website
+equivalent of [/r/blunderyears](https://www.reddit.com/r/blunderyears/) 🤣
+
+However, we live in a truly magical time.  An age in which a no-talent, UI-clueless developer like myself can _actually_ build
+a respectable website without spending _toooo_ much time slamming their heads into a wall.  In this post, I'll take you through
+the steps I took when making the first iteration of this website.  Likely, this will drift over time, and I will almost
+definitely _not_ come back and update this post with changes I make to the site.  For reference, you can find the exact
+commit when I'm writing this code [here](https://github.com/unredundant/unredundant-io/tree/530750d57492db1c4fd8df872651c87f1b797f1f).
+
+Before we begin, let's get some disclaimers out of the way.
+
+## Setting the groundwork
+
+As I've alluded to, I am a backend engineer by trade, and my knowledge of front end best practice is fleeting at best.
+
+I based most of the technical decisions of this project on a combination of newsletter project hype and simply what I
+was able to get working.  Given the rate at which the Javascript ecosystem changes, this will likely be completely out of
+date by the end of the month (I'm writing this on February 3rd, 2022).
+
+🚀 Without further ado... let's get building 🚀
+
+## Boilerplate
+
+I chose [NextJS](https://nextjs.org) as my React framework.  It is without question the web framework-du-jour, and anecdotally,
+I have nothing but praise so far.  It touts itself as "The React Framework for Production" and it seems to be just that.
+
+It gets you from 0 to launch on the first day, and has a bevy of powerful features, so it can grow with your application.
+
+Bootstrapping a new NextJS project is insanely easy.  Assuming you have [NodeJS]() available on your `$PATH`, you can simply run
+
+```
+> npx create-next-app@latest --ts my-portfolio
+```
+
+The `--ts` stands for TypeScript, an addition that I consider non-negotiable.  Coming from my statically-typed background,
+dealing with masses of untyped data is something I find completely unacceptable.  I'm willing to accept a slightly higher
+barrier to entry, knowing that it will pay dividends in the future.
+
+`my-portfolio` is going to be the name of the project it creates.  Change this to anything that floats your boat.
+
+Going ahead and `cd` into that newly minted directory.
+
+At this point, you already have a fully deployable web app, jam-packed with a bunch of awesome developer experience tooling.
+
+Go ahead and run `yarn dev` and head over to [localhost:3000](http://localhost:3000)
+
+You should also be able to see a collection of files that looks something like the following.
+
+![cra-boilerplate](/post/building-portfolio-site/cra-boilerplate.png)
+
+You can ignore most of these for now. The majority of our work is going to be inside the `pages` folder.
+
+Before we start making any actual content, let's get our UI library in place!
+
+## UI
+
+No offense to the boilerplate NextJS page, but it's not much of a looker.  Very reminiscent of those Bootstrap UI
+applications that were all the rage back in the mid 2010s.  Let's spice it up using [NextUI](https://nextui.org/).
+Despite the name, there is no _actual_ relation to NextJS (at least to my knowledge).
+
+```
+> yarn add @nextui-org/react next-themes
+```
+
+`next-themes` is a nice quality-of-life library that makes adding multiple themes super easy.  In this tutorial we will
+only add a single theme, but I want to set you up for big success 😉
+
+Head on over to `pages/_app.tsx` and overwrite it with the following
+
+```typescript
+// TODO
+```
+
+## GraphQL
+
+TODO
+
+## Hosting
+
+TODO

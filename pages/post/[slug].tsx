@@ -6,27 +6,23 @@ import path from 'path';
 import matter from 'gray-matter';
 import { ParsedUrlQuery } from 'querystring';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote/dist/types';
-import SyntaxHighlighterProps, { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { PageContainer } from '../../components/PageContainer';
+import { Container, Text } from '@nextui-org/react';
+// @ts-ignore
+import rehypePrism from '@mapbox/rehype-prism';
 
-const syntaxHighlighter = (props: SyntaxHighlighterProps) => {
-  return (
-    <div>
-      <SyntaxHighlighter style={dark} {...props} />
-    </div>
-  );
-};
-
-const components = { SyntaxHighlighter: syntaxHighlighter };
-
-const PostPage: NextPage<PostProps> = ({ metadata: { title }, mdxSource }) => {
+const PostPage: NextPage<PostProps> = ({ metadata: { title, date }, mdxSource }) => {
   return (
     <PageContainer>
-      <div>
-        <p>{title}</p>
-        <MDXRemote {...mdxSource} components={components} />
-      </div>
+      <Container style={{ marginTop: '25px' }}>
+        <Text h1 size={50} css={{ textGradient: '45deg, $yellow500 -20%, $red500 100%', textAlign: 'center' }}>
+          {title}
+        </Text>
+        <Text h4 size={16} color="primary" css={{ textAlign: 'center' }}>
+          {date}
+        </Text>
+        <MDXRemote {...mdxSource} />
+      </Container>
     </PageContainer>
   );
 };
@@ -48,11 +44,12 @@ interface PostContext extends ParsedUrlQuery {
   slug: string;
 }
 
-type PostMetadata = {
+export type PostMetadata = {
   title: string;
-  date: string; // todo format?
+  date: string;
   description: string;
   thumbnailUrl: string;
+  publish: boolean;
   tags: string[];
 };
 
@@ -66,7 +63,11 @@ export const getStaticProps: GetStaticProps<PostProps, PostContext> = async (con
   const { slug } = context.params as PostContext;
   const markdownWithMeta = fs.readFileSync(path.join('posts', slug + '.mdx'), 'utf-8');
   const { data: frontMatter, content } = matter(markdownWithMeta);
-  const mdxSource = await serialize(content);
+  const mdxSource = await serialize(content, {
+    mdxOptions: {
+      rehypePlugins: [rehypePrism],
+    },
+  });
   return {
     props: {
       metadata: frontMatter as PostMetadata,

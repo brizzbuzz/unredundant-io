@@ -7,6 +7,7 @@ import { RecoilRoot } from 'recoil';
 import { NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { createTheme } from '@nextui-org/react';
+import '../style/synthwave-highlighter.css';
 
 // Bind Loading Events
 Router.events.on('routeChangeStart', () => NProgress.start());
