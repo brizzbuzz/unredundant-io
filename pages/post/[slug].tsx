@@ -12,12 +12,15 @@ import { Container, Text } from '@nextui-org/react';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const rehypePrism = require('@mapbox/rehype-prism');
 
-const PostPage: NextPage<PostProps> = ({ metadata: { title, date }, mdxSource }) => {
+const PostPage: NextPage<PostProps> = ({ metadata: { title, description, date }, mdxSource }) => {
   return (
     <PageContainer>
       <Container style={{ marginTop: '25px' }}>
-        <Text h1 size={50} css={{ textGradient: '45deg, $yellow500 -20%, $red500 100%', textAlign: 'center' }}>
+        <Text h1 size={64} css={{ textGradient: '45deg, $yellow500 -20%, $red500 100%', textAlign: 'center' }}>
           {title}
+        </Text>
+        <Text h3 size={24} css={{ textGradient: '45deg, $blue500 -20%, $purple500 50%', textAlign: 'center' }}>
+          {description}
         </Text>
         <Text h4 size={16} color="primary" css={{ textAlign: 'center' }}>
           {date}
