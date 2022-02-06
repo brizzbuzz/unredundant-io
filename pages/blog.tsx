@@ -9,6 +9,7 @@ import { Card, Col, Grid, Text } from '@nextui-org/react';
 import Link from 'next/link';
 import { PostMetadata } from './post/[slug]';
 import { DateTime } from 'luxon';
+import { Feed } from 'feed';
 
 type Post = {
   slug: string;
@@ -57,6 +58,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 export const getStaticProps: GetStaticProps<BlogProps> = async () => {
   const files = fs.readdirSync(path.join('posts'));
   const posts = files.map((filename) => getPost(filename));
+  generateRssFeed(posts);
   return {
     props: {
       posts,
@@ -71,6 +73,42 @@ const getPost: (filename: string) => Post = (filename) => {
     metadata: frontMatter as PostMetadata,
     slug: filename.split('.')[0],
   };
+};
+
+const generateRssFeed: (posts: Post[]) => void = (posts) => {
+  const baseUrl = 'https://unredundant.io';
+  const author = {
+    name: 'Ryan Brink',
+    email: 'rbweb@pm.me',
+    link: 'unredundant.io',
+  };
+  const feed = new Feed({
+    title: 'Unredundant',
+    description: 'Internet ramblings',
+    id: baseUrl,
+    link: baseUrl,
+    language: 'en',
+    feedLinks: {
+      rss2: `${baseUrl}/rss.xml`,
+    },
+    copyright: 'https://creativecommons.org/licenses/by/4.0',
+    author: author,
+  });
+
+  posts
+    .filter((post) => post.metadata.publish)
+    .forEach((post) => {
+      feed.addItem({
+        title: post.metadata.title,
+        id: `${baseUrl}/post/${post.slug}`,
+        link: `${baseUrl}/post/${post.slug}`,
+        description: post.metadata.description,
+        author: [author],
+        date: new Date(post.metadata.date),
+      });
+    });
+
+  fs.writeFileSync('public/rss.xml', feed.rss2());
 };
 
 export default Blog;

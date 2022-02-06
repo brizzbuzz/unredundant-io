@@ -45,3 +45,6 @@ schemas
 
 # GraphQL CodeGen
 generated
+
+# RSS
+public/rss.xml
