@@ -88,6 +88,7 @@ const generateRssFeed: (posts: Post[]) => void = (posts) => {
     id: baseUrl,
     link: baseUrl,
     language: 'en',
+    image: 'public/rss_feed_image.jpeg',
     feedLinks: {
       rss2: `${baseUrl}/rss.xml`,
     },
@@ -108,7 +109,7 @@ const generateRssFeed: (posts: Post[]) => void = (posts) => {
       });
     });
 
-  fs.writeFileSync('public/rss.xml', feed.rss2());
+  fs.writeFileSync('public/feed.xml', feed.rss2());
 };
 
 export default Blog;

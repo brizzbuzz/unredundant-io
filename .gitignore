@@ -47,4 +47,4 @@ schemas
 generated
 
 # RSS
-public/rss.xml
+public/feed.xml
