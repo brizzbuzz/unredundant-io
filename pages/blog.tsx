@@ -88,7 +88,7 @@ const generateRssFeed: (posts: Post[]) => void = (posts) => {
     id: baseUrl,
     link: baseUrl,
     language: 'en',
-    image: 'public/rss_feed_image.jpeg',
+    image: `${baseUrl}/rss_feed_profile.jpeg`,
     feedLinks: {
       rss2: `${baseUrl}/rss.xml`,
     },
