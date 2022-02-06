@@ -106,6 +106,7 @@ const generateRssFeed: (posts: Post[]) => void = (posts) => {
         description: post.metadata.description,
         author: [author],
         date: new Date(post.metadata.date),
+        image: `${baseUrl}/${post.metadata.thumbnailUrl}`,
       });
     });
 
