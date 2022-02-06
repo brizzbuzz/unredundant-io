@@ -19,7 +19,7 @@ const PostPage: NextPage<PostProps> = ({ metadata: { title, description, date },
         <Text h1 size={64} css={{ textGradient: '45deg, $yellow500 -20%, $red500 100%', textAlign: 'center' }}>
           {title}
         </Text>
-        <Text h3 size={24} css={{ textGradient: '45deg, $blue500 -20%, $purple500 50%', textAlign: 'center' }}>
+        <Text h3 size={24} css={{ textGradient: '45deg, $purple300 -10%, $blue200 110%', textAlign: 'center' }}>
           {description}
         </Text>
         <Text h4 size={16} color="primary" css={{ textAlign: 'center' }}>
