@@ -79,8 +79,6 @@ const generateRssFeed: (posts: Post[]) => void = (posts) => {
   const baseUrl = 'https://unredundant.io';
   const author = {
     name: 'Ryan Brink',
-    email: 'rbweb@pm.me',
-    link: 'unredundant.io',
   };
   const feed = new Feed({
     title: 'Unredundant',
