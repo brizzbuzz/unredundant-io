@@ -36,6 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <NextUIProvider>
           <Head>
             <link rel="shortcut icon" href="/favicon.ico" />
+            <link rel="alternate" type="application/rss+xml" title="Unredundant" href="/feed.xml" />
             <title>Unredundant</title>
           </Head>
           <Component {...pageProps} />
