@@ -1,10 +1,10 @@
 import type { GetStaticProps, NextPage } from 'next';
-import { currentTab } from '../components/Navbar';
+import { currentTab } from 'components/Navbar';
 import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
 import { useRecoilState } from 'recoil';
-import { PageContainer } from '../components/PageContainer';
+import { PageContainer } from 'components/PageContainer';
 import { Card, Col, Grid, Text } from '@nextui-org/react';
 import Link from 'next/link';
 import { PostMetadata } from './post/[slug]';
