@@ -7,12 +7,12 @@ import matter from 'gray-matter';
 import { ParsedUrlQuery } from 'querystring';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote/dist/types';
 import { PageContainer } from '../../components/PageContainer';
-import { Container, Text } from '@nextui-org/react';
+import { Card, Container, Grid, Text } from '@nextui-org/react';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const rehypePrism = require('@mapbox/rehype-prism');
 
-const PostPage: NextPage<PostProps> = ({ metadata: { title, description, date }, mdxSource }) => {
+const PostPage: NextPage<PostProps> = ({ metadata: { title, description, date, tags }, mdxSource }) => {
   return (
     <PageContainer>
       <Container style={{ marginTop: '25px' }}>
@@ -22,6 +22,19 @@ const PostPage: NextPage<PostProps> = ({ metadata: { title, description, date },
         <Text h3 size={24} css={{ textGradient: '45deg, $purple300 -10%, $blue200 110%', textAlign: 'center' }}>
           {description}
         </Text>
+        <Grid.Container gap={2} justify="center" style={{ marginTop: '15px' }}>
+          {tags.map((tag) => {
+            return (
+              <Grid key={tag}>
+                <Card color="primary">
+                  <Text h6 size={15} color="white" css={{ textAlign: 'center' }}>
+                    {tag}
+                  </Text>
+                </Card>
+              </Grid>
+            );
+          })}
+        </Grid.Container>
         <Text h4 size={16} color="primary" css={{ textAlign: 'center' }}>
           {date}
         </Text>
