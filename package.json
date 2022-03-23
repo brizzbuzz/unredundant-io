@@ -54,7 +54,7 @@
     "next-mdx-remote": "4.0.0",
     "prettier": "2.6.0",
     "typescript": "4.6.2",
-    "vercel": "24.0.0"
+    "vercel": "24.0.1"
   },
   "volta": {
     "node": "16.14.2",
