@@ -52,7 +52,7 @@
     "gray-matter": "4.0.3",
     "jest": "27.5.1",
     "next-mdx-remote": "4.0.0",
-    "prettier": "2.6.0",
+    "prettier": "2.6.1",
     "typescript": "4.6.3",
     "vercel": "24.0.1"
   },
