@@ -47,7 +47,7 @@
     "@typescript-eslint/parser": "5.27.0",
     "dotenv": "16.0.1",
     "dotenv-cli": "5.1.0",
-    "eslint": "8.16.0",
+    "eslint": "8.17.0",
     "eslint-config-next": "12.1.6",
     "gray-matter": "4.0.3",
     "jest": "27.5.1",
