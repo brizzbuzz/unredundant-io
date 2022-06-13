@@ -13,7 +13,7 @@
     "test": "jest --watch"
   },
   "dependencies": {
-    "@apollo/client": "3.6.7",
+    "@apollo/client": "3.6.8",
     "@graphql-codegen/typescript-apollo-client-helpers": "2.1.20",
     "@heroicons/react": "1.0.6",
     "@mapbox/rehype-prism": "0.8.0",
