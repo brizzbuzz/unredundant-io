@@ -1,12 +1,16 @@
 import { Navbar } from './Navbar';
 import React from 'react';
 
-export const PageContainer: React.FC = (props) => {
+type Props = {
+  children: React.ReactNode;
+};
+
+export const PageContainer: React.FC<Props> = ({ children }: Props) => {
   return (
     <div>
       <div>
         <Navbar />
-        {props.children}
+        {children}
       </div>
     </div>
   );
