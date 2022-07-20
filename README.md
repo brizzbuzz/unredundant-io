@@ -14,6 +14,7 @@ This project uses a number of frameworks / tooling to help create an awesome sit
 6. [Apollo GraphQL](https://www.apollographql.com/) for the GraphQL client
 7. [GraphQL CodeGen](https://www.graphql-code-generator.com) for schema introspection and type generation
 8. [Remote MDX](https://github.com/hashicorp/next-mdx-remote) for processing blog posts
+9. [Husky](https://www.npmjs.com/package/husky) for easy git hook configuration
 
 ## Local Dev
 
@@ -27,7 +28,11 @@ In order to run the dev server, you will need a couple of things first
 
 ### Configuring your environment
 
-First things first, create an `.env.local` file in the root of your directory.
+First things first, run `yarn install` to get all your dependencies.
+
+Next, get your git hooks set up by running `husky install`
+
+Then create an `.env.local` file in the root of your directory.
 
 Inside, add the following with your PAT generated in the pre-reqs section.
 
