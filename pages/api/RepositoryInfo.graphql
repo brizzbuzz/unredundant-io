@@ -1,16 +1,16 @@
 fragment RepositoryInfo on Repository {
+  name
+  owner {
+    login
+  }
+  nameWithOwner
+  stargazerCount
+  description
+  latestRelease {
     name
-    owner {
-        login
-    }
-    nameWithOwner
-    stargazerCount
-    description
-    latestRelease {
-        name
-        createdAt
-    }
-    primaryLanguage {
-        name
-    }
+    createdAt
+  }
+  primaryLanguage {
+    name
+  }
 }
