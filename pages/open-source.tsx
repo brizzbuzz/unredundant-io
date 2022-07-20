@@ -9,13 +9,13 @@ type ProjectProperties = {
   data: Array<RepositoryInfo>;
 };
 
-const Projects: NextPage<ProjectProperties> = ({ data }) => {
+const OpenSource: NextPage<ProjectProperties> = ({ data }) => {
   const [, setCurrent] = useRecoilState(currentTab);
-  setCurrent('Projects');
+  setCurrent('Open Source');
 
   return (
     <PageContainer>
-      <Grid.Container style={{ padding: '25px' }} gap={2} justify="center">
+      <Grid.Container style={{ marginTop: '50px', marginLeft: '25px', marginRight: '25px' }} gap={2} justify="center">
         {data
           .sort((a, b) => a.stars - b.stars)
           .reverse()
@@ -44,4 +44,4 @@ export async function getServerSideProps() {
   return { props: { data } };
 }
 
-export default Projects;
+export default OpenSource;

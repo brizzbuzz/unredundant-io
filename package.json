@@ -10,7 +10,8 @@
     "generate": "graphql-codegen",
     "generate:local": "dotenv -c local -- yarn generate",
     "codegen": "graphql-codegen --config codegen.yml",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "3.6.9",
@@ -55,7 +56,8 @@
     "next-mdx-remote": "4.0.3",
     "prettier": "2.7.1",
     "typescript": "4.7.4",
-    "vercel": "24.2.5"
+    "vercel": "24.2.5",
+    "husky": "^8.0.0"
   },
   "volta": {
     "node": "16.16.0",

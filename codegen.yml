@@ -1,19 +1,19 @@
 overwrite: true
 schema:
-  - "https://api.github.com/graphql":
+  - 'https://api.github.com/graphql':
       headers:
-        Authorization: "bearer ${GITHUB_TOKEN}"
-documents: "pages/**/*.graphql"
+        Authorization: 'bearer ${GITHUB_TOKEN}'
+documents: 'pages/**/*.graphql'
 generates:
   schemas/github.graphql:
     plugins:
       - schema-ast
   generated/graphql.tsx:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
-      - "fragment-matcher"
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+      - 'fragment-matcher'
   ./generated/graphql.schema.json:
     plugins:
-      - "introspection"
+      - 'introspection'

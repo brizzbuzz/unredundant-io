@@ -31,6 +31,7 @@ type GetProjectsQuery = {
   sourdoughKotlin: RepositoryInfoFragment;
   skelegro: RepositoryInfoFragment;
   unredundantio: RepositoryInfoFragment;
+  backstage: RepositoryInfoFragment;
 };
 
 export async function getProjectData() {
@@ -56,6 +57,9 @@ export async function getProjectData() {
         unredundantio: repository(owner: "unredundant", name: "unredundant-io") {
           ...RepositoryInfo
         }
+        backstage: repository(owner: "backstage", name: "backstage") {
+          ...RepositoryInfo
+        }
       }
     `,
   });
@@ -67,6 +71,7 @@ export async function getProjectData() {
     infoFragmentToResponse(data.sourdoughKotlin, 'Repo Template for Kotlin JVM'),
     infoFragmentToResponse(data.skelegro, 'Wacky Assortment of Kotlin DSLs'),
     infoFragmentToResponse(data.unredundantio, 'This Portfolio Site'),
+    infoFragmentToResponse(data.backstage, 'Developer Portal Platform'),
   ];
 }
 
