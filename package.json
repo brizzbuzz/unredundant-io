@@ -30,7 +30,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-syntax-highlighter": "15.5.0",
-    "recoil": "0.7.4"
+    "recoil": "0.7.5"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.11.6",
