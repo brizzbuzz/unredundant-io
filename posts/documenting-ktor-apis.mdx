@@ -1,5 +1,5 @@
 ---
-title: Building an OpenAPI Spec Generator
+title: Write Code, Get Docs
 description: Painless Ktor API Documentation
 date: '2022-08-16'
 thumbnailUrl: 'post/documenting-ktor-apis/thumbnail.jpeg'
@@ -125,3 +125,108 @@ object HealthCheckController {
 
 As you can see, all we need to do is execute our `documentation` function on the route itself, and Kompendium will wire
 the documentation code into the applications state, ready for us to view as an end user.
+
+### Documenting Authentication
+
+When we want to document that and endpoint is secured behind an authentication mechanism, we must do two things
+
+1. Document the auth mechanism at the application level
+2. Associate the route with the appropriate mechanism(s)
+
+Doing the first part is trivial
+
+```kotlin
+private fun Application.mainModule() {
+  // install other plugins
+  install(NotarizedApplication()) {
+    // baseSpec here is the same spec we defined above
+    spec = baseSpec().copy(
+      components = Components(
+        securitySchemes = mutableMapOf(
+          "basic" to BasicAuth()
+        )
+      )
+    )
+  }
+  // setup routes here
+}
+```
+
+Once we have defined our security schema(s), we can associate our routes to them
+
+```kotlin
+private fun Route.authenticatedDocumentation() {
+  install(NotarizedRoute()) {
+    parameters = listOf(
+      Parameter(
+        name = "id",
+        `in` = Parameter.Location.path,
+        schema = TypeDefinition.STRING
+      )
+    )
+    get = GetInfo.builder {
+      summary("Get user by id")
+      description("A very neat endpoint!")
+      // Will display that our route is secured via basic auth
+      security = mapOf(
+        "basic" to emptyList()
+      )
+      response {
+        responseCode(HttpStatusCode.OK)
+        responseType<ExampleResponse>()
+        description("Will return whether or not the user is real 😱")
+      }
+    }
+  }
+}
+
+```
+
+The `emptyList()` here can be a bit confusing. This corresponds to a collection of `scopes` for the authentication mechanism.
+This really only applies to OAuth and API Key auth mechanisms, so for trivial implementations like basic auth, we provide an empty list
+
+### Documenting Exceptions
+
+As much as we'd all love our code to work flawlessly, _occasionally_, things don't work out quite like
+we planned. Luckily, Ktor is ready for this scenario with their [StatusPage](https://ktor.io/docs/status-pages.html) plugin.
+
+This allows us to define API behavior for when our code throws exceptions. But how to document this?
+
+Luckily, Kompendium has you covered ❤️
+
+We can document that our route can provide alternative responses using the `canRespond` method
+
+```kotlin
+private fun Route.locationDocumentation() {
+  install(NotarizedRoute()) {
+    parameters = listOf(
+      Parameter(
+        name = "id",
+        `in` = Parameter.Location.path,
+        schema = TypeDefinition.STRING
+      )
+    )
+    get = GetInfo.builder {
+      summary("Get user by id")
+      description("A very neat endpoint!")
+      response {
+        responseCode(HttpStatusCode.OK)
+        responseType<ExampleResponse>()
+        description("Will return whether or not the user is real 😱")
+      }
+      // Informs our API users that this is a potential response
+      canRespond {
+        description("Bad Things Happened")
+        responseCode(HttpStatusCode.InternalServerError)
+        responseType<ExceptionResponse>()
+      }
+    }
+  }
+}
+```
+
+## What's Next?
+
+Kompendium is still pretty raw. It's test suite is pretty epic (topic for another post), but there are likely several
+edge cases that are not covered. If you run into any problems using Kompendium, please open a GitHub issue
+[here](https://github.com/bkbnio/kompendium/issues/new/choose) 🙏
