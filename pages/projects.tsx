@@ -9,7 +9,7 @@ type ProjectProperties = {
   data: Array<RepositoryInfo>;
 };
 
-const OpenSource: NextPage<ProjectProperties> = ({ data }) => {
+const Projects: NextPage<ProjectProperties> = ({ data }) => {
   const [, setCurrent] = useRecoilState(currentTab);
   setCurrent('Open Source');
 
@@ -44,4 +44,4 @@ export async function getServerSideProps() {
   return { props: { data } };
 }
 
-export default OpenSource;
+export default Projects;

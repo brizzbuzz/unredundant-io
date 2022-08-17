@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
   const navigationItems: Array<NavigationIem> = [
     { name: 'Home', icon: HomeIcon, href: '/', current: false },
     { name: 'Blog', icon: RssIcon, href: '/blog', current: false },
-    { name: 'Open Source', icon: FolderOpenIcon, href: '/open-source', current: false },
+    { name: 'Projects', icon: FolderOpenIcon, href: '/projects', current: false },
     { name: 'Photography', icon: CameraIcon, href: '/photography', current: false, hidden: true },
     { name: 'Contact', icon: MailIcon, href: '/contact', current: false, hidden: true },
   ];
