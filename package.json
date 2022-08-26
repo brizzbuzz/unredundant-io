@@ -55,7 +55,7 @@
     "jest": "28.1.3",
     "next-mdx-remote": "4.1.0",
     "prettier": "2.7.1",
-    "typescript": "4.7.4",
+    "typescript": "4.8.2",
     "vercel": "24.2.5",
     "husky": "8.0.1"
   },
