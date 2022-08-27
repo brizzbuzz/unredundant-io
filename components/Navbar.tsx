@@ -1,4 +1,4 @@
-import { CameraIcon, FolderOpenIcon, HomeIcon, MailIcon, RssIcon } from '@heroicons/react/outline';
+import { CameraIcon, FolderOpenIcon, HomeIcon, RssIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import { Col, Container, Row } from '@nextui-org/react';
 import React from 'react';
 import { atom, useRecoilState } from 'recoil';
@@ -36,7 +36,7 @@ export const Navbar: React.FC = () => {
     { name: 'Blog', icon: RssIcon, href: '/blog', current: false },
     { name: 'Projects', icon: FolderOpenIcon, href: '/projects', current: false },
     { name: 'Photography', icon: CameraIcon, href: '/photography', current: false, hidden: true },
-    { name: 'Contact', icon: MailIcon, href: '/contact', current: false, hidden: true },
+    { name: 'Contact', icon: EnvelopeIcon, href: '/contact', current: false, hidden: true },
   ];
 
   navigationItems.forEach((item) => {
