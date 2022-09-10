@@ -5,7 +5,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { useRecoilState } from 'recoil';
 import { PageContainer } from 'components/PageContainer';
-import { Card, Col, Grid, Text } from '@nextui-org/react';
+import { Card, Col, Container, Grid, Text } from '@nextui-org/react';
 import Link from 'next/link';
 import { PostMetadata } from './post/[slug]';
 import { DateTime } from 'luxon';
@@ -35,17 +35,24 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
             <Grid xs={12} sm={4} lg={3} key={index}>
               <Link href={'/post/' + post.slug} passHref>
                 <Card cover clickable hoverable>
-                  <Card.Header css={{ position: 'absolute', zIndex: 1, top: 5 }}>
-                    <Col>
-                      <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
+                  <Card.Image src={post.metadata.thumbnailUrl} height={240} width="100%" alt="Card image background" />
+                  <Card.Footer>
+                    <div>
+                      <Text
+                        size={16}
+                        weight="bold"
+                        transform="uppercase"
+                        css={{
+                          textGradient: '45deg, $purple600 -20%, $pink600 50%',
+                        }}
+                      >
                         {post.metadata.title}
                       </Text>
-                      <Text h4 color="white">
+                      <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
                         {post.metadata.description}
                       </Text>
-                    </Col>
-                  </Card.Header>
-                  <Card.Image src={post.metadata.thumbnailUrl} height={240} width="100%" alt="Card image background" />
+                    </div>
+                  </Card.Footer>
                 </Card>
               </Link>
             </Grid>
