@@ -18,7 +18,7 @@
     "@graphql-codegen/typescript-apollo-client-helpers": "2.2.3",
     "@heroicons/react": "2.0.11",
     "@mapbox/rehype-prism": "0.8.0",
-    "@nextui-org/react": "1.0.2-beta.5-dbg4",
+    "@nextui-org/react": "1.0.0-beta.10",
     "@stitches/react": "1.2.8",
     "feed": "4.2.2",
     "graphql": "16.6.0",

@@ -22,6 +22,7 @@ export type RepositoryInfo = {
   release: string | null;
   description: string;
   role: string;
+  thumbnailUrl: string;
 };
 
 type GetProjectsQuery = {
@@ -65,23 +66,25 @@ export async function getProjectData() {
   });
 
   return [
-    infoFragmentToResponse(data.kompendium, 'Ktor OpenAPI Generator'),
-    infoFragmentToResponse(data.satisfaketion, 'A Funky Faker'),
-    infoFragmentToResponse(data.sourdoughGradle, 'Great Gradle Plugins'),
-    infoFragmentToResponse(data.sourdoughKotlin, 'Repo Template for Kotlin JVM'),
-    infoFragmentToResponse(data.skelegro, 'Wacky Assortment of Kotlin DSLs'),
-    infoFragmentToResponse(data.unredundantio, 'This Portfolio Site'),
-    infoFragmentToResponse(data.backstage, 'Developer Portal Platform'),
+    infoFragmentToResponse(data.kompendium, 'Ktor OpenAPI Generator', 'project/kompendium.jpeg'),
+    infoFragmentToResponse(data.satisfaketion, 'A Funky Faker', 'project/satisfaketion.jpeg'),
+    infoFragmentToResponse(data.sourdoughGradle, 'Great Gradle Plugins', 'project/sourdough-gradle.jpeg'),
+    infoFragmentToResponse(data.sourdoughKotlin, 'Kotlin Repo Template', 'project/sourdough-kt.jpeg'),
+    infoFragmentToResponse(data.skelegro, 'Wacky Kotlin DSLs', 'project/skelegro.jpeg'),
+    infoFragmentToResponse(data.unredundantio, 'This Portfolio Site', 'project/unredundant-io.jpeg'),
+    infoFragmentToResponse(data.backstage, 'Developer Portal Platform', 'project/backstage.jpeg'),
   ];
 }
 
 const infoFragmentToResponse = (
   fragment: RepositoryInfoFragment,
-  description: string | null = null,
+  description: string,
+  thumbnailUrl: string,
   role = 'Core Maintainer'
 ): RepositoryInfo => {
   return {
     description: description ?? fragment.description ?? '',
+    thumbnailUrl: thumbnailUrl,
     language: fragment.primaryLanguage?.name ?? null,
     release: fragment.latestRelease?.name ?? null,
     role: role,
