@@ -63,36 +63,18 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
                     </Col>
                     <Col>
                       <Row justify="flex-end" css={{ paddingTop: '5px' }}>
-                        <Button flat auto rounded css={{ color: '#94f9f0', bg: '#94f9f026' }}>
-                          <Text css={{ color: 'inherit' }} size={12} weight="bold" transform="uppercase">
-                            Cop the Sauce
-                          </Text>
-                        </Button>
+                        <Link target="_blank" href={`https://github.com/${project.repo.owner}/${project.repo.name}`}>
+                          <Button flat auto rounded css={{ color: '#94f9f0', bg: '#94f9f026' }}>
+                            <Text css={{ color: 'inherit' }} size={12} weight="bold" transform="uppercase">
+                              Cop the Sauce
+                            </Text>
+                          </Button>
+                        </Link>
                       </Row>
                     </Col>
                   </Row>
                 </Card.Footer>
               </Card>
-              {/*<Card hoverable>*/}
-              {/*  <Card.Header>*/}
-              {/*    <div>*/}
-              {/*      <Text*/}
-              {/*        size={16}*/}
-              {/*        weight="bold"*/}
-              {/*        transform="uppercase"*/}
-              {/*        css={{*/}
-              {/*          textGradient: '45deg, $purple600 -20%, $pink600 50%',*/}
-              {/*        }}*/}
-              {/*      >*/}
-              {/*        {project.repo.name}*/}
-              {/*      </Text>*/}
-              {/*      <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">*/}
-              {/*        {project.description}*/}
-              {/*      </Text>*/}
-              {/*    </div>*/}
-              {/*  </Card.Header>*/}
-              {/*  <Card.Image src={project.thumbnailUrl} height="100%" width="100%" alt="Card image background" />*/}
-              {/*</Card>*/}
             </Grid>
           ))}
       </Grid.Container>
