@@ -5,7 +5,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { useRecoilState } from 'recoil';
 import { PageContainer } from 'components/PageContainer';
-import { Card, Col, Container, Grid, Text } from '@nextui-org/react';
+import { Card, Grid, Text } from '@nextui-org/react';
 import Link from 'next/link';
 import { PostMetadata } from './post/[slug]';
 import { DateTime } from 'luxon';
