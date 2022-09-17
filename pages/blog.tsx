@@ -35,7 +35,13 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
             <Grid xs={12} sm={4} lg={3} key={index}>
               <Link href={'/post/' + post.slug} passHref>
                 <Card isPressable isHoverable>
-                  <Card.Image src={post.metadata.thumbnailUrl} height={240} width="100%" alt="Card image background" />
+                  <Card.Image
+                    src={post.metadata.thumbnailUrl}
+                    objectFit="cover"
+                    height={240}
+                    width="100%"
+                    alt="Card image background"
+                  />
                   <Card.Footer>
                     <div>
                       <Text
