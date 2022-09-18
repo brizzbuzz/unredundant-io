@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { PageContainer } from '../components/PageContainer';
 import { getProjectData, RepositoryInfo } from './api/github';
 import { Button, Card, Col, Grid, Link, Row, Text } from '@nextui-org/react';
+import { useMediaQuery } from 'util/useMediaQuery';
 
 type ProjectProperties = {
   data: Array<RepositoryInfo>;
@@ -11,16 +12,28 @@ type ProjectProperties = {
 
 const Projects: NextPage<ProjectProperties> = ({ data }) => {
   const [, setCurrent] = useRecoilState(currentTab);
-  setCurrent('Open Source');
+  setCurrent('Projects');
+
+  const isUltrawide = !useMediaQuery(2600);
+  const isLg = !useMediaQuery(1400);
+  const isSm = useMediaQuery(960);
+
+  const padStyle = isLg ? { paddingLeft: '50px', paddingRight: '50px' } : {};
 
   return (
     <PageContainer>
-      <Grid.Container style={{ paddingLeft: '50px', paddingRight: '50px' }} gap={2} justify="center">
+      <Grid.Container
+        style={{
+          ...padStyle,
+        }}
+        gap={2}
+        justify="center"
+      >
         {data
           .sort((a, b) => a.stars - b.stars)
           .reverse()
           .map((project, index) => (
-            <Grid key={index} xs={12} sm={4} md={3} lg={3}>
+            <Grid key={index} xs={12} sm={isSm ? 12 : 6} lg={isLg ? 4 : 3} xl={isUltrawide ? 2 : 3}>
               <Card css={{ w: '100%', h: '400px' }}>
                 <Card.Body css={{ p: 0 }}>
                   <Card.Image
@@ -35,7 +48,7 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
                   isBlurred
                   css={{
                     position: 'absolute',
-                    bgBlur: '#0f111466',
+                    bgBlur: '#1a102490',
                     borderTop: '$borderWeights$light solid $gray800',
                     bottom: 0,
                     zIndex: 1,
