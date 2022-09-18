@@ -46,7 +46,7 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
                   isBlurred
                   css={{
                     position: 'absolute',
-                    bgBlur: '#0f111466',
+                    bgBlur: '#1a102490',
                     borderTop: '$borderWeights$light solid $gray800',
                     bottom: 0,
                     zIndex: 1,
