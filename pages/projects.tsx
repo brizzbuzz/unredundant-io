@@ -15,6 +15,7 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
   setCurrent('Projects');
 
   const isMd = useMediaQuery(960);
+  const isSm = useMediaQuery(650);
 
   const padStyle = isMd ? {} : { paddingLeft: '50px', paddingRight: '50px' };
 
@@ -31,7 +32,7 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
           .sort((a, b) => a.stars - b.stars)
           .reverse()
           .map((project, index) => (
-            <Grid key={index} xs={12} sm={6} lg={4} xl={3}>
+            <Grid key={index} xs={isSm ? 12 : 6} sm={6} lg={4} xl={3}>
               <Card css={{ w: '100%', h: '400px' }}>
                 <Card.Body css={{ p: 0 }}>
                   <Card.Image
