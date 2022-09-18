@@ -33,6 +33,7 @@ type GetProjectsQuery = {
   skelegro: RepositoryInfoFragment;
   unredundantio: RepositoryInfoFragment;
   backstage: RepositoryInfoFragment;
+  lerasium: RepositoryInfoFragment;
 };
 
 export async function getProjectData() {
@@ -61,6 +62,9 @@ export async function getProjectData() {
         backstage: repository(owner: "backstage", name: "backstage") {
           ...RepositoryInfo
         }
+        lerasium: repository(owner: "bkbnio", name: "lerasium") {
+          ...RepositoryInfo
+        }
       }
     `,
   });
@@ -73,6 +77,7 @@ export async function getProjectData() {
     infoFragmentToResponse(data.skelegro, 'Wacky Kotlin DSLs', 'project/skelegro.jpeg'),
     infoFragmentToResponse(data.unredundantio, 'This Portfolio Site', 'project/unredundant-io.jpeg'),
     infoFragmentToResponse(data.backstage, 'Developer Portal Platform', 'project/backstage.jpeg'),
+    infoFragmentToResponse(data.lerasium, 'Kotlin Service Generator', 'project/lerasium.jpeg'),
   ];
 }
 

@@ -26,7 +26,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => {
 
   return (
     <PageContainer>
-      <Grid.Container style={{ marginTop: '50px' }} gap={2} justify="center">
+      <Grid.Container gap={2} justify="center">
         {posts
           .filter((post) => post.metadata.publish)
           .sort((a, b) => DateTime.fromISO(a.metadata.date).toMillis() - DateTime.fromISO(b.metadata.date).toMillis())
