@@ -14,10 +14,10 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
   const [, setCurrent] = useRecoilState(currentTab);
   setCurrent('Projects');
 
-  const isMd = useMediaQuery(960);
-  const isSm = useMediaQuery(650);
+  const isLg = !useMediaQuery(1400);
+  const isSm = useMediaQuery(960);
 
-  const padStyle = isMd ? {} : { paddingLeft: '50px', paddingRight: '50px' };
+  const padStyle = isLg ? { paddingLeft: '50px', paddingRight: '50px' } : {};
 
   return (
     <PageContainer>
@@ -32,7 +32,7 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
           .sort((a, b) => a.stars - b.stars)
           .reverse()
           .map((project, index) => (
-            <Grid key={index} xs={isSm ? 12 : 6} sm={6} lg={4} xl={3}>
+            <Grid key={index} xs={12} sm={isSm ? 12 : 6} lg={4} xl={3}>
               <Card css={{ w: '100%', h: '400px' }}>
                 <Card.Body css={{ p: 0 }}>
                   <Card.Image
