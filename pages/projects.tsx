@@ -14,7 +14,6 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
   const [, setCurrent] = useRecoilState(currentTab);
   setCurrent('Projects');
 
-  const isUltrawide = !useMediaQuery(2600);
   const isLg = !useMediaQuery(1400);
   const isSm = useMediaQuery(960);
 
@@ -33,7 +32,7 @@ const Projects: NextPage<ProjectProperties> = ({ data }) => {
           .sort((a, b) => a.stars - b.stars)
           .reverse()
           .map((project, index) => (
-            <Grid key={index} xs={12} sm={isSm ? 12 : 6} lg={isLg ? 4 : 3} xl={isUltrawide ? 2 : 3}>
+            <Grid key={index} xs={12} sm={isSm ? 12 : 6} lg={3}>
               <Card css={{ w: '100%', h: '400px' }}>
                 <Card.Body css={{ p: 0 }}>
                   <Card.Image
