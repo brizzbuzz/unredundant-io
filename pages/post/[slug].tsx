@@ -15,7 +15,7 @@ const rehypePrism = require('@mapbox/rehype-prism');
 const PostPage: NextPage<PostProps> = ({ metadata: { title, description, date, tags }, mdxSource }) => {
   return (
     <PageContainer>
-      <Container style={{ marginTop: '25px' }}>
+      <Container style={{ marginTop: '25px', maxWidth: '1200px' }}>
         <Text h1 size={64} css={{ textGradient: '45deg, $yellow500 -20%, $red500 100%', textAlign: 'center' }}>
           {title}
         </Text>
