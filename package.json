@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.7.0",
-    "@graphql-codegen/typescript-apollo-client-helpers": "2.2.3",
+    "@graphql-codegen/typescript-apollo-client-helpers": "2.2.4",
     "@heroicons/react": "2.0.12",
     "@mapbox/rehype-prism": "0.8.0",
     "@nextui-org/react": "1.0.0-beta.10",
@@ -33,12 +33,12 @@
     "recoil": "0.7.5"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.13.5",
+    "@graphql-codegen/cli": "2.13.6",
     "@graphql-codegen/fragment-matcher": "3.3.1",
     "@graphql-codegen/introspection": "2.2.1",
-    "@graphql-codegen/typescript": "2.7.3",
-    "@graphql-codegen/typescript-operations": "2.5.3",
-    "@graphql-codegen/typescript-react-apollo": "3.3.3",
+    "@graphql-codegen/typescript": "2.7.4",
+    "@graphql-codegen/typescript-operations": "2.5.4",
+    "@graphql-codegen/typescript-react-apollo": "3.3.4",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
     "@types/luxon": "3.0.1",
