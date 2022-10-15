@@ -18,7 +18,7 @@ import image5 from '@/images/photos/cyberpunk-portrait-woman-warrior.jpg'
 import logoRippling from '@/images/logos/rippling.png'
 import logoCapsule from '@/images/logos/capsule.png'
 import logoCircle from '@/images/logos/circle.png'
-import logoFacebook from '@/images/logos/facebook.svg'
+import logoFacebook from '@/images/logos/facebook.png'
 import logoWalmartLabs from '@/images/logos/walmart-labs.png'
 import {generateRssFeed} from '@/lib/generateRssFeed'
 import {getAllArticles} from '@/lib/getAllArticles'
@@ -195,7 +195,7 @@ function Resume() {
             <div
               className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
               <Link href={role.url} target="_blank">
-                <Image src={role.logo} alt="" className="h-7 w-7" unoptimized/>
+                <Image placeholder="blur" src={role.logo} alt="" className="h-7 w-7"/>
               </Link>
             </div>
             <dl className="flex flex-auto flex-wrap gap-x-2">
