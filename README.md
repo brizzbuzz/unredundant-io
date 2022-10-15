@@ -1,58 +1,42 @@
-# Portfolio Site
+# Spotlight
 
-Hey 👋 Welcome to the source code for my personal site https://unredundant.io
+Spotlight is a [Tailwind UI](https://tailwindui.com) site template built using [Tailwind CSS](https://tailwindcss.com) and [Next.js](https://nextjs.org).
 
-## Tech Stack
+## Getting started
 
-This project uses a number of frameworks / tooling to help create an awesome site and an awesome developer experience
+To get started with this template, first install the npm dependencies:
 
-1. [NextJS](https://nextjs.org/) for full-stack TypeScript development
-2. [Vercel](https://vercel.com/) for hosting
-3. [NextUI](https://nextui.org/) for UI bootstrapping
-4. [Volta](https://volta.sh) for handling Node versioning
-5. [Yarn](https://yarnpkg.com) for dependency management
-6. [Apollo GraphQL](https://www.apollographql.com/) for the GraphQL client
-7. [GraphQL CodeGen](https://www.graphql-code-generator.com) for schema introspection and type generation
-8. [Remote MDX](https://github.com/hashicorp/next-mdx-remote) for processing blog posts
-9. [Husky](https://www.npmjs.com/package/husky) for easy git hook configuration
-
-## Local Dev
-
-### Pre-requisites
-
-In order to run the dev server, you will need a couple of things first
-
-1. Install [Volta](https://volta.sh)
-2. Install [Yarn](https://yarnpkg.com)
-3. Create a GitHub [Personal Access Token](https://github.com/settings/tokens/new)
-
-### Configuring your environment
-
-First things first, run `yarn install` to get all your dependencies.
-
-Next, get your git hooks set up by running `husky install`
-
-Then create an `.env.local` file in the root of your directory.
-
-Inside, add the following with your PAT generated in the pre-reqs section.
-
-```
-GITHUB_TOKEN=
+```bash
+npm install
 ```
 
-Once you have added this to your environment, you can go ahead and run
+Next, create a `.env.local` file in the root of your project and set the `NEXT_PUBLIC_SITE_URL` variable to your site's public URL:
 
-```shell
-yarn codegen
+```
+NEXT_PUBLIC_SITE_URL=https://example.com
 ```
 
-This uses your GitHub token to access the GitHub GraphQL API, generating the type bindings necessary for the dynamic
-project loading.
+Next, run the development server:
 
-Once you have done that, you are ready to run the server
-
-```shell
-yarn dev
+```bash
+npm run dev
 ```
 
-You should be all set 🚀 Head on over to http://localhost:3000 and starting playing around!
+Finally, open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
+
+## Customizing
+
+You can start editing this template by modifying the files in the `/src` folder. The site will auto-update as you edit these files.
+
+## License
+
+This site template is a commercial product and is licensed under the [Tailwind UI license](https://tailwindui.com/license).
+
+## Learn more
+
+To learn more about the technologies used in this site template, see the following resources:
+
+- [Tailwind CSS](https://tailwindcss.com/docs) - the official Tailwind CSS documentation
+- [Next.js](https://nextjs.org/docs) - the official Next.js documentation
+- [Headless UI](https://headlessui.dev) - the official Headless UI documentation
+- [MDX](https://mdxjs.com) - the MDX documentation

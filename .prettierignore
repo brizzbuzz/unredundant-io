@@ -1,5 +1,0 @@
-# Ignore artifacts:
-.next
-node_modules
-public
-generated

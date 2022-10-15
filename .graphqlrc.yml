@@ -1,5 +1,0 @@
-projects:
-  github:
-    schema: https://api.github.com/graphql
-    headers:
-      Authorization: bearer ${GITHUB_TOKEN}

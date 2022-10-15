@@ -1,0 +1,273 @@
+import {ArticleLayout} from '@/components/ArticleLayout'
+import thumbnail from './thumbnail.jpeg'
+
+export const meta = {
+  author: 'Ryan Brink',
+  date: '2022-02-04',
+  title: 'Give Me Satisfaketion',
+  description: 'Writing a Pure Kotlin Data Faker',
+  thumbnail: thumbnail
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+At some point, every developer out there as had the need to get their hands on some dummy data. More often than not,
+that data, be it in a test, in a script, etc. that data takes the form of something like the following
+
+```kt
+val testerino = MyAwesomeClass(
+  name = "hi",
+  date = LocalDate(2022, 1, 1),
+  reason = "potato"
+  age = 1337
+)
+```
+
+This is boring at best, and potentially dangerous at worst. If we rely on dumb data to test our code, we expose ourselves
+to bugs via oversight and unidentified biases. Much in the same vein as [property testing](https://en.wikipedia.org/wiki/Property_testing),
+we can gain increased confidence in our tests by exposing them to a larger range of potential inputs.
+
+With a bit of reasoning providing wind in our sails, let's see what's already out there!
+
+## Kotlin Faker
+
+A quick google search for a pure Kotlin data faker will likely lead you to serpro69's 😏 [kotlin-faker](https://github.com/serpro69/kotlin-faker).
+
+From Kotlin Faker's GitHub Page
+
+> Port of a popular ruby faker gem written in kotlin. Generates realistically looking fake data such as names, addresses, banking details, and many more, that can be used for testing purposes during development and testing.
+
+Sounds great! So what does using it look like?
+
+```kt
+val faker = faker { }
+
+faker.name.firstName() // => Ana
+faker.address.city() // => New York
+```
+
+This works for generating single values, but what if I want to generate a complete data class? In Kotlin Faker, that would look something like this
+
+```kt
+class Baz(val id: Int, val uuid: UUID, val relatedUuid: UUID)
+
+class Test {
+    @Test
+    fun test() {
+        val faker = Faker()
+
+        val baz: Baz = faker.randomProvider.randomClassInstance {
+            typeGenerator<UUID> { UUID.fromString("00000000-0000-0000-0000-000000000000") }
+            typeGenerator<Int> { 0 }
+            namedParameterGenerator("relatedUuid") { UUID.fromString("11111111-1111-1111-1111-111111111111") }
+        }
+    }
+}
+```
+
+There's a couple of things I really don't like about this approach. It is not very clear _what_ each generator is being
+tied to. Additionally, it is not particularly clear how one would go about reusing any of this logic across classes, tests,
+etc.
+
+Ultimately, I believe that the Kotlin community deserves a better Faker, one that goes beyond a simple port of a Ruby gem.
+
+That's why I built Satisfaketion
+
+## Satisfaketion
+
+Ultimately, with Satisfaketion, I wanted to build a fake data generator that is above all else, two things
+
+1. Portable
+2. Composable
+
+Portability meaning that the library can be leveraged across a spectrum of use cases. Once we have portable
+generators, we can then worry about composability, combining our utilities to build experiences not possible on other platforms.
+
+Satisfaketion aims to achieve these two goals through two very powerful concepts. `Generators` and `Mutators`.
+
+### Generators
+
+A generator is exactly what it sounds like, an interface for generating data. More specifically, it is a [functional interface](https://kotlinlang.org/docs/fun-interfaces.html).
+
+> An interface with only one abstract method is called a functional interface, or a Single Abstract Method (SAM) interface. The functional interface can have several non-abstract members but only one abstract member.
+
+In Satisfaketion, the `Generator` contract is as follows.
+
+```kt
+fun interface Generator<R> {
+  fun generate(seed: Random): R
+}
+```
+
+Pretty simple, but plenty powerful 😈 For example, building a naive phone number generator would look something like the following
+
+```kt
+object TestPhoneGenerator : Generator<String> {
+  override fun generate(seed: Random = Random.Default): String {
+    val first = seed.nextInt(100..999)
+    val second = seed.nextInt(100..999)
+    val third = seed.nextInt(1000..9999)
+    return "$first-$second-$third"
+  }
+}
+```
+
+But simply generating a bunch of fake data isn't enough. We want to be able to reuse these generators in a number of use cases.
+
+What if I wanted to leverage my phone number generator to generate a dynamically sized list of phone numbers, potentially
+with an arbitrary number of null results as well?
+
+Enter the `Mutator`
+
+### Mutators
+
+Like a `Generator`, a `Mutator` is a functional interface
+
+```kt
+fun interface Mutator<R, RR> {
+  fun mutate(generator: Generator<R>): Generator<RR>
+}
+```
+
+Its purpose is to take a generator of a specific type, and mutate it, providing the consumer with a generator of another type.
+
+The potential here is limitless, but let's use an official example that comes as part of the `satisfaketion-mutators` module
+
+```kt
+class WeightedNullabilityMutator<T : Any>(
+  private val weight: Double,
+  private val random: Random = Random.Default
+) : Mutator<T, T?> {
+
+  init {
+    require(weight > 0 && weight < 1) { "Weight $weight invalid: must be between 0 and 1" }
+  }
+
+  override fun mutate(generator: Generator<T>): Generator<T?> = Generator {
+    val baseResult = generator.generate(random)
+    val picker = (random.nextInt(MAX_WEIGHT).toDouble()) / MAX_WEIGHT
+    when (weight > picker) {
+      false -> null
+      true -> baseResult
+    }
+  }
+
+  private companion object {
+    const val MAX_WEIGHT = 100
+  }
+}
+```
+
+The `WeightedNullabilityMutator` takes a `Generator<T>` and returns a `Generator<T?>`. Given the provided `weight`, it
+will deterministically generate an appropriate ratio of `T` values to `null` values.
+
+Pretty freakin' neat 🤩
+
+### The Power of Composability
+
+What Satisfaketion really aims to unlock is the power of composability. By providing the `Mutator` and `Generator` building blocks,
+it allows users to generate realistic fake data in a way that has never previously been possible.
+
+```kt
+data class MyPerson(
+  val firstName: String,
+  val lastName: String,
+  val prefix: String?,
+  val suffix: String?,
+)
+
+val faker = Faker<MyPerson> {
+  MyPerson::firstName { EnglishName.firstName }
+  MyPerson::lastName { EnglishName.lastName }
+  MyPerson::prefix { EnglishName.prefix.mutate(WeightedNullabilityMutator(0.25, seed)) }
+  MyPerson::suffix { EnglishName.suffix.mutate(WeightedNullabilityMutator(0.25, seed)) }
+}
+```
+
+Using our building blocks and a little reflection, Satisfaketion can build fully type-safe class generators, leveraging
+individual generators built by yourself and by the community.
+
+It can even unlock some extremely powerful features like correlated generation. A correlated generator, at its core, is (you guessed it) just another generator.
+
+```kt
+class Faker<T> {
+  // ...
+  class CorrelatedPropertyGenerator<R, RR> : Generator<RR> {
+    // ..
+  }
+}
+```
+
+It is defined as an inner class on our `Faker` class generator. This gives it access to all the other declared generators,
+which leads to some _super_ interesting possibilities. We can do really awesome stuff like build out deterministic, pseudo-random, and most importantly,
+**correct** data classes for important things like timestamps.
+
+```kt
+data class TimingStuff(val start: LocalDateTime, val end: LocalDateTime, val middle: LocalDateTime)
+
+val fake = Faker<TimingStuff> {
+  TimingStuff::start {
+    Generator { r ->
+      LocalDateTime(
+        year = r.nextInt(1995, 2022),
+        monthNumber = r.nextInt(1, 12),
+        dayOfMonth = r.nextInt(1, 28),
+        hour = r.nextInt(1, 23),
+        minute = r.nextInt(1, 59)
+      )
+    }
+  }
+  TimingStuff::end {
+    CorrelatedPropertyGenerator(TimingStuff::start) { start, seed ->
+      LocalDateTime(
+        year = start.year.plus(seed.nextInt(5, 25)),
+        monthNumber = seed.nextInt(1, 12),
+        dayOfMonth = seed.nextInt(1, 28),
+        hour = seed.nextInt(1, 23),
+        minute = seed.nextInt(1, 59)
+      )
+    }
+  }
+  TimingStuff::middle {
+    CorrelatedPropertyGenerator(TimingStuff::start) { start ->
+      CorrelatedPropertyGenerator(TimingStuff::end) { end, seed ->
+        LocalDateTime(
+          year = seed.nextInt(start.year + 1, end.year - 1),
+          monthNumber = seed.nextInt(1, 12),
+          dayOfMonth = seed.nextInt(1, 28),
+          hour = seed.nextInt(1, 23),
+          minute = seed.nextInt(1, 59)
+        )
+      }
+    }
+  }
+}
+```
+
+In reality, much of the snippet above could be abstracted even further with some kind of `LocalDateTimeFactory`,
+but for the purpose of illustration, I think it's easier to see all the code in front of you.
+Leveraging `CorrelatedPropertyGenerator`, we can build out a completely pseudo-random data class that
+generates three timestamps, all guaranteed to be just as their names guarantee, `start` before `middle`, `middle`
+before `end` 😎 This unlocks some _really_ cool testing possibilities, freeing us from the standard biases
+of dummy date values.
+
+P.S. Notice that you can _nest_ correlations 👀 `middle` relies on not just `start` but also `end`
+
+## What's Next?
+
+There is a lot to do in fake data land!! I would _love_ to make this multiplatform using Kotlin MPP. There are a number
+of blockers to this becoming a reality.
+
+1. The faker class relies on a fair bit of reflection to make its constructor bindings work. This is only available in Kotlin's JVM target at the moment.
+2. The generator and mutator libraries rely on [kaml](https://github.com/charleskorn/kaml) to deserialize their baseline data sets.
+
+> ⚠️ Just to be clear he `Generator` and `Mutator` interfaces themselves are fully multiplatform compatible (available in the `core` module), it is the custom generators such as `EnglishName` that are not currently MPP compatible.
+
+## Join the Fun
+
+Satisfaketion is always looking for people to chip in, whether by adding new generators, mutators, or something that I
+haven't even thought of yet. If you would like to contribute, the source code can be found [here](https://github.com/unredundant/satisfaketion).
+
+Feel free to play around, or open an issue if there is something you'd like to discuss!
+
+Looking forward to collaborating with ya, and may your fake data be beautiful ✨
