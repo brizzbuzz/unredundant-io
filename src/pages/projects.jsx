@@ -83,16 +83,17 @@ const NewCard = ({project}) => {
   return (
     <div className="relative max-w-md mx-auto md:max-w-xs overflow-hidden rounded-lg shadow-md">
       <div>
-        <div className="align-middle relative bg-zinc-800 grid grid-cols-2 border-red-300 h-10">
+        <div className="align-middle relative bg-teal-300 dark:bg-zinc-800 grid grid-cols-2 border-red-300 h-10">
           <div>
-            <p className="ml-4 absolute top-1/2 transform -translate-y-1/2 left-0 font-bold text-gray-300">
+            <p className="ml-4 absolute top-1/2 transform -translate-y-1/2 left-0 font-bold text-zinc-700 dark:text-gray-300">
               {project.name}
             </p>
           </div>
           <div>
             <a href={project.link} target="_blank" rel="noreferrer">
               <button
-                className="absolute right-0 px-2 rounded-full text-sm text-zinc-800 font-light bg-teal-300 hover:bg-teal-500 opacity-80 hover:drop-shadow-md duration-300 mr-3 top-2 -translate-y-1/2 my-3">
+                className="absolute right-0 px-2 rounded-full text-sm text-zinc-800 font-light bg-white hover:bg-gray-200 dark:bg-teal-300
+                hover:dark:bg-teal-500 opacity-80 hover:drop-shadow-md duration-300 mr-3 top-2 -translate-y-1/2 my-3">
                 Cop the Sauce
               </button>
             </a>
