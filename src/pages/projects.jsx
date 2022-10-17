@@ -106,10 +106,18 @@ const NewCard = () => {
   return (
     <div className="relative max-w-md mx-auto md:max-w-xs overflow-hidden rounded-lg shadow-md">
       <div>
-        <div className="py-2 bg-zinc-800 grid grid-cols-2">
-          <p className="text-left font-bold text-gray-300">
-            Skelegro
-          </p>
+        <div className="align-middle relative bg-zinc-800 grid grid-cols-2 border-red-300 h-10">
+          <div>
+            <p className="ml-4 absolute top-1/2 transform -translate-y-1/2 left-0 font-bold text-gray-300">
+              Skelegro
+            </p>
+          </div>
+          <div>
+            <button
+              className="absolute right-0 px-2 rounded-full text-sm text-white bg-teal-500 hover:bg-teal-700 opacity-80 hover:drop-shadow-md duration-300 mr-3 top-2 -translate-y-1/2 my-3">
+              Cop the Sauce
+            </button>
+          </div>
         </div>
         <Image objectFit="fill" src={portal} alt=""/>
         <div className="absolute bottom-0 left-0 right-0 px-4 py-2 backdrop-blur-md bg-white/10">
