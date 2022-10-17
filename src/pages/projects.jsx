@@ -3,43 +3,44 @@ import Head from 'next/head'
 
 import {Card} from '@/components/Card'
 import {SimpleLayout} from '@/components/SimpleLayout'
+import portal from '@/images/photos/glowing-portal-impressionist.jpg'
 
 const projects = [
   {
     name: 'Backstage',
     description: 'An open platform for building developer portals.',
-    link: { href: 'https://backstage.io', label: 'backstage.io' },
+    link: {href: 'https://backstage.io', label: 'backstage.io'},
     role: "contributor"
   },
   {
     name: 'Kompendium',
     description:
       'Non-invasive Ktor OpenAPI spec generator',
-    link: { href: 'https://github.com/bkbnio/kompendium', label: 'github.com' },
+    link: {href: 'https://github.com/bkbnio/kompendium', label: 'github.com'},
     role: "maintainer"
   },
   {
     name: 'Satisfaketion',
     description: 'A funky faker focused on portability and composability',
-    link: { href: 'https://github.com/unredundant/satisfaketion', label: 'github.com' },
+    link: {href: 'https://github.com/unredundant/satisfaketion', label: 'github.com'},
     role: "maintainer"
   },
   {
     name: 'unredundant.io',
     description: 'This portfolio site',
-    link: { href: 'https://github.com/unredundant/unredundant-io', label: 'github.com' },
+    link: {href: 'https://github.com/unredundant/unredundant-io', label: 'github.com'},
     role: "maintainer"
   },
   {
     name: 'Lerasium',
     description: 'Kotlin API generator',
-    link: { href: 'https://github.com/bkbnio/lerasium', label: 'github.com' },
+    link: {href: 'https://github.com/bkbnio/lerasium', label: 'github.com'},
     role: "maintainer"
   },
   {
     name: 'Skelegro',
     description: 'Collection of wacky Kotlin DSLs for generating infrastructure manifests',
-    link: { href: 'https://github.com/bkbnio/skelegro', label: 'github.com' },
+    link: {href: 'https://github.com/bkbnio/skelegro', label: 'github.com'},
     role: "maintainer"
   }
 ]
@@ -79,14 +80,44 @@ export default function Projects() {
                 <Card.Link href={project.link.href} target="_blank">{project.name}</Card.Link>
               </h2>
               <Card.Description>{project.description}</Card.Description>
-              <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
-                <LinkIcon className="h-6 w-6 flex-none" />
+              <p
+                className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
+                <LinkIcon className="h-6 w-6 flex-none"/>
                 <span className="ml-2">{project.link.label}</span>
               </p>
             </Card>
           ))}
         </ul>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10">
+          <NewCard/>
+          <NewCard/>
+          <NewCard/>
+        </div>
       </SimpleLayout>
     </>
+  )
+}
+
+const NewCard = () => {
+  return (
+    <div className="relative max-w-md mx-auto md:max-w-xs overflow-hidden rounded-lg shadow-md">
+      <div>
+        <div className="py-2 bg-zinc-800 grid grid-cols-2">
+          <p className="text-left font-bold text-gray-300">
+            Skelegro
+          </p>
+        </div>
+        <Image objectFit="fill" src={portal} alt=""/>
+        <div className="absolute bottom-0 left-0 right-0 px-4 py-2 backdrop-blur-md bg-white/10">
+          <p className="text-center font-light text-gray-300">
+            Collection of wacky Kotlin DSLs for generating infrastructure manifests
+          </p>
+        </div>
+      </div>
+    </div>
   )
 }
