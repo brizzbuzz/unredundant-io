@@ -48,7 +48,7 @@ const projects = [
   },
   {
     name: 'Skelegro',
-    description: 'Collection of wacky Kotlin DSLs for generating infrastructure manifests',
+    description: 'Collection of wacky Kotlin DSLs',
     link: 'https://github.com/bkbnio/skelegro',
     role: "maintainer",
     image: mask
