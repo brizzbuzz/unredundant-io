@@ -54,7 +54,7 @@ export function ArticleLayout({
             <article>
               <header className="flex flex-col">
                 <div className="mb-4 mx-auto max-w-md aspect-square rounded-2xl overflow-hidden">
-                  <Image objectFit="fill" placeholder="blur" src={meta.thumbnail}/>
+                  <Image objectFit="fill" placeholder="blur" src={meta.thumbnail} alt="thumbnail"/>
                 </div>
                 <h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
                   {meta.title}
