@@ -1,47 +1,57 @@
 import Image from 'next/future/image'
 import Head from 'next/head'
 
-import {Card} from '@/components/Card'
 import {SimpleLayout} from '@/components/SimpleLayout'
+
 import portal from '@/images/photos/glowing-portal-impressionist.jpg'
+import gemstone from '@/images/photos/glowing-hovering-gemstone.jpg'
+import horseLady from '@/images/photos/surrealist-horse-woman.jpg'
+import contemplativeLake from '@/images/photos/contemplative-lake-vaguely-japanese-vaporwave.jpg'
+import cathedral from '@/images/photos/impressionist-cathedral-vaporwave.jpg'
+import mask from '@/images/photos/dia-de-meurtos-vaporwave-mask.jpg'
 
 const projects = [
   {
     name: 'Backstage',
     description: 'An open platform for building developer portals.',
-    link: {href: 'https://backstage.io', label: 'backstage.io'},
-    role: "contributor"
+    link: 'https://backstage.io',
+    role: "contributor",
+    image: portal
   },
   {
     name: 'Kompendium',
-    description:
-      'Non-invasive Ktor OpenAPI spec generator',
-    link: {href: 'https://github.com/bkbnio/kompendium', label: 'github.com'},
-    role: "maintainer"
+    description: 'Non-invasive Ktor OpenAPI documentation',
+    link: 'https://github.com/bkbnio/kompendium',
+    role: "maintainer",
+    image: cathedral
   },
   {
     name: 'Satisfaketion',
     description: 'A funky faker focused on portability and composability',
-    link: {href: 'https://github.com/unredundant/satisfaketion', label: 'github.com'},
-    role: "maintainer"
+    link: 'https://github.com/unredundant/satisfaketion',
+    role: "maintainer",
+    image: horseLady
   },
   {
     name: 'unredundant.io',
     description: 'This portfolio site',
-    link: {href: 'https://github.com/unredundant/unredundant-io', label: 'github.com'},
-    role: "maintainer"
+    link: 'https://github.com/unredundant/unredundant-io',
+    role: "maintainer",
+    image: contemplativeLake
   },
   {
     name: 'Lerasium',
-    description: 'Kotlin API generator',
-    link: {href: 'https://github.com/bkbnio/lerasium', label: 'github.com'},
-    role: "maintainer"
+    description: 'Kotlin Service Generator',
+    link: 'https://github.com/bkbnio/lerasium',
+    role: "maintainer",
+    image: gemstone
   },
   {
     name: 'Skelegro',
     description: 'Collection of wacky Kotlin DSLs for generating infrastructure manifests',
-    link: {href: 'https://github.com/bkbnio/skelegro', label: 'github.com'},
-    role: "maintainer"
+    link: 'https://github.com/bkbnio/skelegro',
+    role: "maintainer",
+    image: mask
   }
 ]
 
@@ -70,59 +80,39 @@ export default function Projects() {
         title="Open source projects that I've created or contributed to."
         intro="I’ve worked on tons of little projects over the years but these are the ones that I’m most proud of. They are all fully open-sourced, so if you see something that piques your interest, check out the code and contribute if you have ideas for how it can be improved."
       >
-        <ul
-          role="list"
-          className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {projects.map((project) => (
-            <Card as="li" key={project.name}>
-              <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-                <Card.Link href={project.link.href} target="_blank">{project.name}</Card.Link>
-              </h2>
-              <Card.Description>{project.description}</Card.Description>
-              <p
-                className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
-                <LinkIcon className="h-6 w-6 flex-none"/>
-                <span className="ml-2">{project.link.label}</span>
-              </p>
-            </Card>
-          ))}
-        </ul>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10">
-          <NewCard/>
-          <NewCard/>
-          <NewCard/>
+          {projects.map((project) => (
+            <NewCard project={project}/>
+          ))}
         </div>
       </SimpleLayout>
     </>
   )
 }
 
-const NewCard = () => {
+const NewCard = ({project}) => {
   return (
     <div className="relative max-w-md mx-auto md:max-w-xs overflow-hidden rounded-lg shadow-md">
       <div>
         <div className="align-middle relative bg-zinc-800 grid grid-cols-2 border-red-300 h-10">
           <div>
             <p className="ml-4 absolute top-1/2 transform -translate-y-1/2 left-0 font-bold text-gray-300">
-              Skelegro
+              {project.name}
             </p>
           </div>
           <div>
-            <button
-              className="absolute right-0 px-2 rounded-full text-sm text-white bg-teal-500 hover:bg-teal-700 opacity-80 hover:drop-shadow-md duration-300 mr-3 top-2 -translate-y-1/2 my-3">
-              Cop the Sauce
-            </button>
+            <a href={project.link} target="_blank">
+              <button
+                className="absolute right-0 px-2 rounded-full text-sm text-zinc-800 font-light bg-teal-300 hover:bg-teal-500 opacity-80 hover:drop-shadow-md duration-300 mr-3 top-2 -translate-y-1/2 my-3">
+                Cop the Sauce
+              </button>
+            </a>
           </div>
         </div>
-        <Image objectFit="fill" src={portal} alt=""/>
+        <Image objectFit="fill" src={project.image} alt=""/>
         <div className="absolute bottom-0 left-0 right-0 px-4 py-2 backdrop-blur-md bg-white/10">
-          <p className="text-center font-light text-gray-300">
-            Collection of wacky Kotlin DSLs for generating infrastructure manifests
+          <p className="text-center font-light text-gray-100">
+            {project.description}
           </p>
         </div>
       </div>
