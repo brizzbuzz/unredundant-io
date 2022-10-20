@@ -1,0 +1,55 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import { CaptionedImage } from '@/components/CaptionedImage'
+import Image from 'next/future/image'
+import thumbnail from './thumbnail.jpeg'
+import disappointedWoman from './disappointed_woman.jpeg'
+
+export const meta = {
+  author: 'Ryan Brink',
+  date: '2022-10-19',
+  title: 'ENV OP',
+  description: 'Hardening your environment using 1Password',
+  thumbnail: thumbnail,
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+My second anodyne topic in as many weeks. I really need to spice up my life.
+
+Until then, let's talk environment variables
+
+## Helpless Grandmas
+
+Currently, developers collectively have decided to just accept an absolutely mental approach to storing sensitive credentials we use for local development,
+which is to simply store them as plain text scattered around our machines.
+
+Stopping and thinking about this for even a second exposes us as security frauds, just a bunch of hapless little grandma's who store their passwords in Notepad, except worse, because we at least, should know better.
+
+<CaptionedImage src={disappointedWoman} />
+
+We can do better. Honestly, we must do better. Thankfully, we can borrow from cloud security best principles to harden our local environment, and improve the developer experience in the process.
+
+## Proposed Solution
+
+When deploying software to the cloud, it is a common practice to inject secrets at runtime from a centralized secret store. This way, we focus deeply
+on hardening our central store, restricting access using fine-grained access controls.
+
+# Introduce 1Password & CLI
+
+TODO
+
+## Creating a Vault
+
+TODO
+
+## Accesing via Terminal
+
+TODO
+
+## Automatically injecting with direnv
+
+TODO
+
+# Pain Points
+
+TODO

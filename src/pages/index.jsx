@@ -3,13 +3,10 @@ import Head from 'next/head'
 import Link from 'next/link'
 import clsx from 'clsx'
 
-import {Button} from '@/components/Button'
-import {Card} from '@/components/Card'
-import {Container} from '@/components/Container'
-import {
-  GitHubIcon,
-  PolyworkIcon,
-} from '@/components/SocialIcons'
+import { Button } from '@/components/Button'
+import { Card } from '@/components/Card'
+import { Container } from '@/components/Container'
+import { GitHubIcon, PolyworkIcon } from '@/components/SocialIcons'
 import image1 from '@/images/photos/cyberpunk-portrait-professor.jpg'
 import image2 from '@/images/photos/cyberpunk-portrait-cowboy.jpg'
 import image3 from '@/images/photos/cyberpunk-portrait-princess.jpg'
@@ -20,9 +17,9 @@ import logoCapsule from '@/images/logos/capsule.png'
 import logoCircle from '@/images/logos/circle.png'
 import logoFacebook from '@/images/logos/facebook.png'
 import logoWalmartLabs from '@/images/logos/walmart-labs.png'
-import {generateRssFeed} from '@/lib/generateRssFeed'
-import {getAllArticles} from '@/lib/getAllArticles'
-import {formatDate} from '@/lib/formatDate'
+import { generateRssFeed } from '@/lib/generateRssFeed'
+import { getAllArticles } from '@/lib/getAllArticles'
+import { formatDate } from '@/lib/formatDate'
 
 function MailIcon(props) {
   return (
@@ -83,7 +80,7 @@ function ArrowDownIcon(props) {
   )
 }
 
-function Article({article}) {
+function Article({ article }) {
   return (
     <Card as="article">
       <Card.Title href={`/articles/${article.slug}`}>
@@ -98,11 +95,10 @@ function Article({article}) {
   )
 }
 
-function SocialLink({icon: Icon, ...props}) {
+function SocialLink({ icon: Icon, ...props }) {
   return (
     <Link className="group -m-1 p-1" {...props}>
-      <Icon
-        className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300"/>
+      <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300" />
     </Link>
   )
 }
@@ -114,7 +110,7 @@ function Newsletter() {
       className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
     >
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-        <MailIcon className="h-6 w-6 flex-none"/>
+        <MailIcon className="h-6 w-6 flex-none" />
         <span className="ml-3">Stay up to date</span>
       </h2>
       <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
@@ -179,23 +175,27 @@ function Resume() {
       title: 'Software Engineer Intern',
       logo: logoFacebook,
       start: '2016',
-      end: '2016'
-    }
+      end: '2016',
+    },
   ]
 
   return (
     <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-        <BriefcaseIcon className="h-6 w-6 flex-none"/>
+        <BriefcaseIcon className="h-6 w-6 flex-none" />
         <span className="ml-3">Work</span>
       </h2>
       <ol className="mt-6 space-y-4">
         {resume.map((role, roleIndex) => (
           <li key={roleIndex} className="flex gap-4">
-            <div
-              className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+            <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
               <Link href={role.url} target="_blank">
-                <Image placeholder="blur" src={role.logo} alt="" className="h-7 w-7"/>
+                <Image
+                  placeholder="blur"
+                  src={role.logo}
+                  alt=""
+                  className="h-7 w-7"
+                />
               </Link>
             </div>
             <dl className="flex flex-auto flex-wrap gap-x-2">
@@ -216,8 +216,7 @@ function Resume() {
               >
                 <time dateTime={role.start.dateTime ?? role.start}>
                   {role.start.label ?? role.start}
-                </time>
-                {' '}
+                </time>{' '}
                 <span aria-hidden="true">—</span>{' '}
                 <time dateTime={role.end.dateTime ?? role.end}>
                   {role.end.label ?? role.end}
@@ -229,8 +228,7 @@ function Resume() {
       </ol>
       <Button href="#" variant="secondary" className="group mt-6 w-full">
         Download CV
-        <ArrowDownIcon
-          className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50"/>
+        <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
       </Button>
     </div>
   )
@@ -263,26 +261,22 @@ function Photos() {
   )
 }
 
-export default function Home({articles}) {
+export default function Home({ articles }) {
   return (
     <>
       <Head>
-        <title>
-          Ryan Brink - Unredundant
-        </title>
-        <meta
-          name="description"
-          content="Unredundant - Ryan Brink"
-        />
+        <title>Ryan Brink - Unredundant</title>
+        <meta name="description" content="Unredundant - Ryan Brink" />
       </Head>
       <Container className="mt-9">
         <div className="max-w-2xl">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl text-transparent bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text">
+          <h1 className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
             (Un) redundant
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I’m Ryan, a software developer and all-around technochad based in New York City. Occasionally I write
-            things, more often I code things.  AI art enthusiast.
+            I’m Ryan, a software developer and all-around technochad based in
+            New York City. Occasionally I write things, more often I code
+            things. AI art enthusiast.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
@@ -298,17 +292,17 @@ export default function Home({articles}) {
           </div>
         </div>
       </Container>
-      <Photos/>
+      <Photos />
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
             {articles.map((article) => (
-              <Article key={article.slug} article={article}/>
+              <Article key={article.slug} article={article} />
             ))}
           </div>
           <div className="space-y-10 lg:pl-16 xl:pl-24">
             {/*<Newsletter/>*/}
-            <Resume/>
+            <Resume />
           </div>
         </div>
       </Container>
@@ -325,7 +319,7 @@ export async function getStaticProps() {
     props: {
       articles: (await getAllArticles())
         .slice(0, 4)
-        .map(({component, ...meta}) => meta),
+        .map(({ component, ...meta }) => meta),
     },
   }
 }
