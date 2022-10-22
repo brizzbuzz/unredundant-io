@@ -56,14 +56,19 @@ This allows developers to access their secrets in a secure fashion, through thei
 
 ## A Simple Example
 
-The easiest way to see how much better this is than the old approach is to see a working example.  In the 1Password ecosystem, secrets are segmented by what they call vaults.
+The easiest way to see how much better this is than the old approach is to see a working example.
+We will set up a simple collection of environment variables that we will access from our repository without ever pasting them in plain text on our machine 😱
+
+Without further ado, let's get started
+
+### Setting up our vaults
+
+In the 1Password ecosystem, secrets are segmented by what they call vaults.
 
 Every user has a private vault that only they can access, along with an arbitrary number of shared vaults.  This fits perfectly with our needs, as typically local secrets are broken into two categories
 
 1. Secrets that every developer shares (perhaps an api key to a shared resource)
 2. Secrets that are unique to every developer (in this example we will use a GitHub personal access token)
-
-### Setting up our vaults
 
 As mentioned above, every 1Password account starts out with a private vault.
 In order to follow along, go ahead and make a `Team` vault to store your shared secrets in.
