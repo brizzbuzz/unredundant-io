@@ -1,0 +1,151 @@
+import {ArticleLayout} from '@/components/ArticleLayout'
+import {CaptionedImage} from '@/components/CaptionedImage'
+import thumbnail from './thumbnail.jpeg'
+import disappointedWoman from './disappointed_woman.jpeg'
+import simpleCloudExample from './simple-cloud-example.png'
+import privateVaultExample from './private-vault-screenshot.png'
+import teamVaultExample from './team-vault-screenshot.png'
+import drawTheFuckingOwl from './draw-the-fucking-owl.jpeg'
+
+export const meta = {
+  author: 'Ryan Brink',
+  date: '2022-10-19',
+  title: 'ENV OP',
+  description: 'Hardening your local environment using 1Password',
+  thumbnail: thumbnail,
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+My second anodyne topic in as many weeks. I really need to spice up my life.
+
+Until then, let's talk environment variables
+
+## Helpless Grandmas
+
+Currently, developers collectively have decided to just accept an absolutely mental approach to storing sensitive credentials we use for local development,
+which is to simply store them as plain text scattered around our machines.
+
+Stopping and thinking about this for even a second exposes us as security frauds, just a bunch of hapless little grandma's who store their passwords in Notepad, except worse, because we at least, should know better.
+
+<CaptionedImage src={disappointedWoman} caption="Madame Security is disappointed"/>
+
+We can do better. Honestly, we must do better. Thankfully, we can borrow from cloud security principles to harden our local environment, and improve the developer experience in the process.
+
+## Proposed Solution
+
+When deploying software to the cloud, it is a common practice to inject secrets at runtime from a centralized secret store. This way, we focus deeply
+on hardening our central store, restricting access using fine-grained access controls.
+
+<CaptionedImage src={simpleCloudExample} caption="Oversimplified Secret Injection"/>
+
+What if our local environments could operate in a similar manner?
+
+Rather than having developers maintain exhaustive instructions on configuring local environment variables, we instead maintain a centralized
+source of truth for local secrets.
+
+### Introduce 1Password & CLI
+
+Thankfully, a mechanism for maintaining local secrets is pretty much a solved problem.  Password managers have been around for over a decade now,
+and if you're not already using one, you _really_ should be.  I'll leave it to [1Password](https://blog.1password.com/why-you-need-a-password-manager/)
+to convince you.
+
+What has not been so easy, historically speaking, is accessing these secrets in a programmatic fashion.  Enter the [1Password CLI](https://developer.1password.com/docs/cli/).
+
+This allows developers to access their secrets in a secure fashion, through their terminal (and by proxy, really any application that can access the shell).
+
+## A Simple Example
+
+The easiest way to see how much better this is than the old approach is to see a working example.  In the 1Password ecosystem, secrets are segmented by what they call vaults.
+
+Every user has a private vault that only they can access, along with an arbitrary number of shared vaults.  This fits perfectly with our needs, as typically local secrets are broken into two categories
+
+1. Secrets that every developer shares (perhaps an api key to a shared resource)
+2. Secrets that are unique to every developer (in this example we will use a GitHub personal access token)
+
+### Setting up our vaults
+
+As mentioned above, every 1Password account starts out with a private vault.
+In order to follow along, go ahead and make a `Team` vault to store your shared secrets in.
+I'll leave it to you to follow the [official documentation](https://support.1password.com/create-share-vaults) on creating shared vaults.
+
+Once we've taken care of that, we are ready to create some secrets.  For the purpose of this demo, let's first make a simple entry in our `Private` vault with the following values
+
+<CaptionedImage src={privateVaultExample} caption="Personally, I like to segment my secrets using sections (GitHub in this example)" />
+
+Now, let's go ahead and add an entry to our `Team` vault with some credentials we plan to share across the team.  In my case, I'm adding two dummy encryption keys
+
+<CaptionedImage src={teamVaultExample} />
+
+### Accessing via Terminal
+
+Again I will refer you to the [official documentation](https://developer.1password.com/docs/cli/get-started/) for setting up the 1Password CLI.
+I also highly recommend turning on biometric auth, because it is freakin' sweet to inject secrets into your terminal with the touch of a finger.
+
+<CaptionedImage src={drawTheFuckingOwl} caption="My tutorials in a nutshell" />
+
+After you've completed the fucking owl, you'll be able to programmatically access your secrets!
+
+Values are accessed via a file-access syntax
+
+```shell
+op read op://{{Vault}}/{{Entry}}/{{Section}}/{{Key}}
+```
+
+We can wrap these calls in a shell script to hydrate all of our secrets at once in a simple shell script
+
+```shell
+export GITHUB_ACTOR=$(op read op://Private/local.env/GitHub/username)
+export GITHUB_TOKEN=$(op read op://Private/local.env/GitHub/access_token)
+export AES_ENCRYPTION_KEY=$(op read op://Team/local.env/Encryption/aes_key)
+export JWT_ENCRYPTION_KEY=$(op read op://Team/local.env/Encryption/jwt_key)
+```
+
+
+## Automatically injecting with direnv
+
+In order to take our next level setup to even higher heights, we need a way to check our environment configuration in to our version control, and have it automatically run whenever a developer enters the directory.
+There are a couple tools in this space, my personal favorite being [direnv](https://direnv.net/).
+
+Direnv allows us to automatically source a script (`.envrc`) when we enter a directory or any of its children.  It will also unload the configuration if we leave the directory.  Taking our example from above, we can now
+check the following into our source code as the `.envrc` file.
+
+```shell
+# ~/REPO_DIR/.envrc
+export GITHUB_ACTOR=$(op read op://Private/local.env/GitHub/username)
+export GITHUB_TOKEN=$(op read op://Private/local.env/GitHub/access_token)
+export AES_ENCRYPTION_KEY=$(op read op://Team/local.env/Encryption/aes_key)
+export JWT_ENCRYPTION_KEY=$(op read op://Team/local.env/Encryption/jwt_key)
+```
+
+Since it does not directly contain any secrets, it is completely safe to store in version control.
+
+Additionally, whenever a developer checks out a branch, at best, they will automatically have their environment variables perfectly configure.
+At worst, they will be warned upon entering the directory if they need to configure any additional environment variables in their private vault.
+No more mysterious failures due to missing env variables!
+
+## Conclusion
+
+We did a fair amount here.  We first repented for our collective security sins.
+We centralized our secrets into two 1Password vaults, a private one and a shared one for team access.
+Then, we configured our terminal to enable programmatic access to our secrets.
+Finally, we hooked up direnv, allowing us to place our environment variable configurations into source control.
+
+### The Awesome
+
+The awesome stuff here is fairly obvious.  We no longer have insecure credentials plastered all throughout our development machines.
+We can now check our configurations into version control, allowing changes to automatically propagate to all team members.  We not only
+improved our security, we did so in a way that provides a dramatically improved developer experience.  This is quite a rare thing
+
+### The Painful
+
+That isn't to say that this solution is perfect.  As it currently stands, each request via the 1Password CLI is performed sequentially.
+This means that the more secrets you need to source, the slower it will be to run direnv.  In my personal experience, it makes entering
+the directory feel noticeably slower, but not deal-breaking slow.
+
+With that said, I really hope 1Password offers a way to improve this situation.  Something like SQL for 1Password (`1QL`???) would be amazing.
+If you could write a single query to retrieve all of your needed credentials, you could send out a request to your local 1Password agent and
+allow it to parallelize the requests in the background.  This would hypothetically make this setup blazing fast.  Let's keep our fingers crossed
+that this is something the 1Password team cooks up in the near future.
+
+Till next time 🫡

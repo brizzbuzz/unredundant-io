@@ -1,10 +1,10 @@
 import Head from 'next/head'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 
-import {Container} from '@/components/Container'
-import {formatDate} from '@/lib/formatDate'
-import {Prose} from '@/components/Prose'
-import Image from "next/image";
+import { Container } from '@/components/Container'
+import { formatDate } from '@/lib/formatDate'
+import { Prose } from '@/components/Prose'
+import Image from 'next/image'
 
 function ArrowLeftIcon(props) {
   return (
@@ -20,11 +20,11 @@ function ArrowLeftIcon(props) {
 }
 
 export function ArticleLayout({
-                                children,
-                                meta,
-                                isRssFeed = false,
-                                previousPathname,
-                              }) {
+  children,
+  meta,
+  isRssFeed = false,
+  previousPathname,
+}) {
   let router = useRouter()
 
   if (isRssFeed) {
@@ -35,7 +35,7 @@ export function ArticleLayout({
     <>
       <Head>
         <title>{`${meta.title} - Ryan Brink`}</title>
-        <meta name="description" content={meta.description}/>
+        <meta name="description" content={meta.description} />
       </Head>
       <Container className="mt-16 lg:mt-32">
         <div className="xl:relative">
@@ -47,23 +47,27 @@ export function ArticleLayout({
                 aria-label="Go back to articles"
                 className="group mb-8 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 transition dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0 dark:ring-white/10 dark:hover:border-zinc-700 dark:hover:ring-white/20 lg:absolute lg:-left-5 lg:mb-0 lg:-mt-2 xl:-top-1.5 xl:left-0 xl:mt-0"
               >
-                <ArrowLeftIcon
-                  className="h-4 w-4 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:stroke-zinc-500 dark:group-hover:stroke-zinc-400"/>
+                <ArrowLeftIcon className="h-4 w-4 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:stroke-zinc-500 dark:group-hover:stroke-zinc-400" />
               </button>
             )}
             <article>
               <header className="flex flex-col">
-                <div className="mb-4 mx-auto max-w-md aspect-square rounded-2xl overflow-hidden">
-                  <Image objectFit="fill" placeholder="blur" src={meta.thumbnail} alt="thumbnail"/>
+                <div className="mx-auto mb-4 aspect-square max-w-md overflow-hidden rounded-2xl">
+                  <Image
+                    objectFit="fill"
+                    placeholder="blur"
+                    src={meta.thumbnail}
+                    alt="thumbnail"
+                  />
                 </div>
                 <h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
                   {meta.title}
                 </h1>
                 <time
                   dateTime={meta.date}
-                  className="pt-3 flex items-center text-base text-zinc-400 dark:text-zinc-500"
+                  className="flex items-center pt-3 text-base text-zinc-400 dark:text-zinc-500"
                 >
-                  <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"/>
+                  <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
                   <span className="ml-3">{formatDate(meta.date)}</span>
                 </time>
               </header>
