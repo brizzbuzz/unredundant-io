@@ -111,6 +111,7 @@ Direnv allows us to automatically source a script (`.envrc`) when we enter a dir
 check the following into our source code as the `.envrc` file.
 
 ```shell
+# ~/REPO_DIR/.envrc
 export GITHUB_ACTOR=$(op read op://Private/local.env/GitHub/username)
 export GITHUB_TOKEN=$(op read op://Private/local.env/GitHub/access_token)
 export AES_ENCRYPTION_KEY=$(op read op://Team/local.env/Encryption/aes_key)
