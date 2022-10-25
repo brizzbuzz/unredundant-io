@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/Image";
 
 export function CaptionedImage({src, caption, props}) {
   return (

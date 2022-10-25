@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/Image'
 import logoPolywork from '@/images/logos/polywork.svg'
 import logoGithub from '@/images/logos/github.png'
 

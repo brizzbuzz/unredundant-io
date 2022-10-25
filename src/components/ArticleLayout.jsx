@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { Container } from '@/components/Container'
 import { formatDate } from '@/lib/formatDate'
 import { Prose } from '@/components/Prose'
-import Image from 'next/image'
+import Image from 'next/Image'
 
 function ArrowLeftIcon(props) {
   return (

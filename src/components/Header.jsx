@@ -1,4 +1,4 @@
-import Image from 'next/future/image'
+import Image from 'next/Image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Popover, Transition } from '@headlessui/react'
