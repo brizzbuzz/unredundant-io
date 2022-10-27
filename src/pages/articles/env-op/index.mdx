@@ -144,7 +144,14 @@ improved our security, we did so in a way that provides a dramatically improved 
 
 ### The Painful
 
-That isn't to say that this solution is perfect.  As it currently stands, each request via the 1Password CLI is performed sequentially.
+That isn't to say that this solution is perfect.
+
+Primarily, I have not been able to successfully adopt this at an organizational level because editor support is nascent, bordering on unusable.
+While there are IDE plugins for both Jetbrains and VSCode, they are a bit clunky to inject into your standard operating model, and assume that
+every user is fully onboarded onto 1Password.  This makes adoption in existing projects extremely tough to sell.  Additionally, _every_ runtime
+context needs to be made aware of 1Password.  This means that all out-of-the-box runners like IntelliJ's Kotlin integration need to be modified.
+
+Additionally, as it currently stands, each request via the 1Password CLI is performed sequentially.
 This means that the more secrets you need to source, the slower it will be to run direnv.  In my personal experience, it makes entering
 the directory feel noticeably slower, but not deal-breaking slow.
 
@@ -152,5 +159,8 @@ With that said, I really hope 1Password offers a way to improve this situation. 
 If you could write a single query to retrieve all of your needed credentials, you could send out a request to your local 1Password agent and
 allow it to parallelize the requests in the background.  This would hypothetically make this setup blazing fast.  Let's keep our fingers crossed
 that this is something the 1Password team cooks up in the near future.
+
+Overall, I think these tooling and speed issues are resolvable, and I look forward to a future where we maintain our local environments as responsibly
+as we (hopefully) maintain our cloud environments.
 
 Till next time 🫡
