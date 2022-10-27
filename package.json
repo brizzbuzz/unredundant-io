@@ -16,7 +16,7 @@
     "@mdx-js/react": "2.1.5",
     "@next/mdx": "13.0.0",
     "@tailwindcss/typography": "0.5.7",
-    "autoprefixer": "10.4.12",
+    "autoprefixer": "10.4.13",
     "clsx": "1.2.1",
     "fast-glob": "3.2.12",
     "feed": "4.2.2",
