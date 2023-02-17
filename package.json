@@ -35,7 +35,7 @@
     "prettier-plugin-tailwindcss": "0.2.3"
   },
   "volta": {
-    "node": "18.14.0",
+    "node": "18.14.1",
     "yarn": "1.22.19"
   }
 }
