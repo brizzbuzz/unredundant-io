@@ -1,19 +1,29 @@
 import { Pool } from 'pg'
-import { drizzle } from 'drizzle-orm/node-postgres'
-import { users } from './db/schema'
+import { drizzle, NodePgDatabase } from 'drizzle-orm/node-postgres'
 
-// Create a connection pool
-const pool = new Pool({
-  host: '127.0.0.1',
-  port: 5432,
-  user: 'test_user',
-  password: 'test_password',
-  database: 'portfolio',
-})
+// Singleton database instance
+let db: NodePgDatabase
 
-// Create a drizzle instance
-const db = drizzle(pool)
-
-export async function getAllUsers() {
-  return db.select().from(users)
+// Exposed connection function
+export async function getOrConnectDatabaseSingleton(config: {
+  host: string
+  port: number
+  user: string
+  password: string
+  database: string
+  ssl_mode: string
+}) {
+  if (!db) {
+    const pool = new Pool({
+      host: config.host,
+      port: config.port,
+      user: config.user,
+      password: config.password,
+      database: config.database,
+      ssl:
+        config.ssl_mode === 'require' ? { rejectUnauthorized: false } : false,
+    })
+    db = await drizzle(pool)
+  }
+  return db
 }

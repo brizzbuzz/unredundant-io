@@ -9,18 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@t3-oss/env-nextjs": "^0.2.2",
     "next": "latest",
+    "persistence": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "persistence": "*"
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "eslint-config-custom": "*",
-    "tsconfig": "*",
     "tailwind-config": "*",
+    "tsconfig": "*",
     "typescript": "^4.5.3"
   }
 }
