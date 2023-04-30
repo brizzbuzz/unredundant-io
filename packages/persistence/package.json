@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "drizzle-orm": "^0.24.2",
-    "pg": "^8.10.0"
+    "pg": "^8.10.0",
+    "pg-native": "^3.0.1"
   }
 }
