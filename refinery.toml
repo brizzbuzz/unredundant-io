@@ -1,8 +1,0 @@
-[main]
-db_type = "Postgres"
-db_host = "localhost"
-db_port = "5432"
-db_user = "test_user"
-db_pass = "test_password"
-db_name = "portfolio"
-trust_cert = false
