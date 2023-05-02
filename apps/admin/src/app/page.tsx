@@ -7,9 +7,7 @@ export default async function Page() {
   return (
     <div>
       <h1>Hello</h1>
-      <pre>
-        {data[0].firstName} {data[0].lastName}
-      </pre>
+      <pre>{data[0].firstName}</pre>
     </div>
   )
 }
