@@ -11,7 +11,7 @@ env:
   NEXT_PUBLIC_PUBLISHABLE_KEY: testy_mctesterson
 on:
   push:
-    branches-ignore:
+    branches:
       - main
 jobs:
   Deploy-Portfolio-Production:
