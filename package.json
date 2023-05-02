@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo build",
+    "build": "dotenv -- turbo build",
     "dev": "dotenv -- turbo dev",
-    "lint": "turbo lint",
+    "lint": "dotenv -- turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

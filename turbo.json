@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalEnv": ["NEXT_PUBLIC_SITE_URL", "NODE_ENV"],
+  "globalEnv": ["NEXT_PUBLIC_SITE_URL", "NODE_ENV", "DATABASE_HOST", "DATABASE_PORT", "DATABASE_NAME", "DATABASE_USER", "DATABASE_PASSWORD", "DATABASE_SSL_MODE"],
   "pipeline": {
     "build": {
       "outputs": [".next/**", "!.next/cache/**"]
