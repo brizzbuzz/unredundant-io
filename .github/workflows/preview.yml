@@ -33,10 +33,19 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel build \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            -e DATABASE_HOST=${{ secrets.DATABASE_HOST }} \
+            -e DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
+            -e DATABASE_USER=${{ secrets.DATABASE_USER }} \
+            -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+            -e DATABASE_SSL_MODE=${{ secrets.DATABASE_SSL_MODE }} \
+            -e NEXT_PUBLIC_PUBLISHABLE_KEY=testy_mctesterson
       - name: Deploy Project Artifacts to Vercel
         run: |
-          vercel deploy --prebuilt \
+          vercel deploy \
+            --prebuilt \
             --token=${{ secrets.VERCEL_TOKEN }} \
             -e DATABASE_HOST=${{ secrets.DATABASE_HOST }} \
             -e DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
