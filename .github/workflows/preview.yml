@@ -8,7 +8,7 @@ on:
 jobs:
   Deploy-Portfolio-Preview:
     runs-on: ubuntu-latest
-    name: Deploy Portfolio Preview
+    name: Portfolio
     env:
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PORTFOLIO_PROJECT_ID }}
     steps:
@@ -23,7 +23,7 @@ jobs:
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
   Deploy-Portfolio-Admin-Preview:
     runs-on: ubuntu-latest
-    name: Deploy Portfolio Admin Preview
+    name: Admin
     env:
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PORTFOLIO_ADMIN_PROJECT_ID }}
     steps:
