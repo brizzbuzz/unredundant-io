@@ -1,25 +1,24 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
+    "build": "turbo build",
+    "dev": "dotenv -- turbo dev",
+    "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "prettier-plugin-tailwindcss": "^0.2.7",
+    "turbo": "latest",
+    "dotenv-cli": "^7.2.1",
+    "vercel": "latest"
   },
   "name": "unredundant-io",
   "packageManager": "yarn@1.22.19",
   "workspaces": [
     "apps/*",
     "packages/*"
-  ],
-  "volta": {
-    "node": "19.9.0",
-    "yarn": "1.22.19"
-  }
+  ]
 }

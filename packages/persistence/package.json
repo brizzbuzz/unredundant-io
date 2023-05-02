@@ -1,0 +1,17 @@
+{
+  "name": "persistence",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "devDependencies": {
+    "@types/pg": "^8.6.6",
+    "drizzle-kit": "^0.17.5",
+    "tsconfig": "*",
+    "typescript": "^4.5.3"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.24.2",
+    "pg": "^8.10.0",
+    "pg-native": "^3.0.1"
+  }
+}
