@@ -21,6 +21,15 @@ jobs:
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PORTFOLIO_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
+        run: yarn build
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
