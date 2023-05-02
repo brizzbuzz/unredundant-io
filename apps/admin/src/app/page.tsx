@@ -6,8 +6,10 @@ export default async function Page() {
   const data = await database.select().from(users)
   return (
     <div>
-      <h1>Hello, Next.js!</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <h1>Hello</h1>
+      <pre>
+        {data[0].firstName} {data[0].lastName}
+      </pre>
     </div>
   )
 }
