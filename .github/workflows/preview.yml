@@ -1,6 +1,14 @@
 name: Vercel Preview Deployment
 env:
+  TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  TURBO_TEAM: unredundant
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+  DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+  DATABASE_USER: ${{ secrets.DATABASE_USER }}
+  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+  DATABASE_SSL_MODE: ${{ secrets.DATABASE_SSL_MODE }}
+  NEXT_PUBLIC_PUBLISHABLE_KEY: testy_mctesterson
 on:
   push:
     branches-ignore:
@@ -13,8 +21,15 @@ jobs:
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PORTFOLIO_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v2
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
+        run: yarn build
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
@@ -33,23 +48,6 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: |
-          vercel build \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            -e DATABASE_HOST=${{ secrets.DATABASE_HOST }} \
-            -e DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
-            -e DATABASE_USER=${{ secrets.DATABASE_USER }} \
-            -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
-            -e DATABASE_SSL_MODE=${{ secrets.DATABASE_SSL_MODE }} \
-            -e NEXT_PUBLIC_PUBLISHABLE_KEY=testy_mctesterson
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
-        run: |
-          vercel deploy \
-            --prebuilt \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            -e DATABASE_HOST=${{ secrets.DATABASE_HOST }} \
-            -e DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
-            -e DATABASE_USER=${{ secrets.DATABASE_USER }} \
-            -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
-            -e DATABASE_SSL_MODE=${{ secrets.DATABASE_SSL_MODE }} \
-            -e NEXT_PUBLIC_PUBLISHABLE_KEY=testy_mctesterson
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
