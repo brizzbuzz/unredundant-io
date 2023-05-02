@@ -3656,9 +3656,9 @@ dreamopt@~0.8.0:
     wordwrap ">=0.0.2"
 
 drizzle-kit@^0.17.5:
-  version "0.17.5"
-  resolved "https://registry.yarnpkg.com/drizzle-kit/-/drizzle-kit-0.17.5.tgz#5435fdcb179b729840e50075e0285a1da6b87597"
-  integrity sha512-oS4qG3d4m7RUHqdhPZSjYh6QSarxbHKyalBeW1cBpJp2F5DB5xvEan6qfaKdasYkI10DNdPuvXcZOR31tiRIGA==
+  version "0.17.6"
+  resolved "https://registry.yarnpkg.com/drizzle-kit/-/drizzle-kit-0.17.6.tgz#30b85c4596718801c7defdd4b8ce0a720bf6c288"
+  integrity sha512-diNslu/ItzLv+++7l2noevXaCOrsfDXv+ZxMJWOy061Gs1BeEhP0t+mBKqeOPy8LsEo0aitNKOe+gPltEScmWQ==
   dependencies:
     camelcase "^7.0.1"
     chalk "^5.2.0"
