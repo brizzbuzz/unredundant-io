@@ -12,7 +12,8 @@
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.2.7",
     "turbo": "latest",
-    "dotenv-cli": "^7.2.1"
+    "dotenv-cli": "^7.2.1",
+    "vercel": "latest"
   },
   "name": "unredundant-io",
   "packageManager": "yarn@1.22.19",
