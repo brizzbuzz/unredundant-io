@@ -16,6 +16,19 @@ concurrency:
   group: ${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 jobs:
+  # TODO Spin up feature branch in Neon and set ENV vars
+  Run-Migrations:
+    runs-on: ubuntu-latest
+    name: Run Migrations
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Atlas
+        run: curl -sSf https://atlasgo.sh | sh
+      - name: Run Migrations
+        run: |
+          atlas migrate apply \
+            --url "postgres://${{ env.DATABASE_USER }}:${{ env.DATABASE_PASSWORD }}@${{ env.DATABASE_HOST }}/${{ env.DATABASE_NAME }}?ssl_mode=${{ env.DATABASE_SSL_MODE }}&search_path=public"
+            --dir "file://migrations?format=flyway"
   Deploy-Portfolio-Preview:
     runs-on: ubuntu-latest
     name: Portfolio
