@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@t3-oss/env-nextjs": "^0.2.2",
+    "@t3-oss/env-nextjs": "^0.3.0",
     "next": "latest",
     "persistence": "*",
     "react": "^18.2.0",
