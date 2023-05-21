@@ -23,11 +23,12 @@ jobs:
             --header='Accept:application/octet-stream' \
             https://api.github.com/repos/unredundant/neonctl/releases/assets/109043724 \
             -O neonctl.kexe
-      - name: Initialize Neonctl
+      - name: Prep for Neonctl (Delete once bug fixed)
         run: |
           mkdir -p $HOME/.config/neonctl
           chmod +x neonctl.kexe
-          ./neonctl.kexe init -t ${{ secrets.NEON_API_TOKEN }}
+      - name: Initialize Neonctl
+        run: ./neonctl.kexe init ${{ secrets.NEON_API_TOKEN }}
       - name: Spawn Database Branch
         run: |
           ./neonctl.kexe branch -p ${{ secrets.NEON_PROJECT_ID }} create | tee branch.json
