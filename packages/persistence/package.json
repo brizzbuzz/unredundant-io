@@ -10,7 +10,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "drizzle-orm": "^0.25.0",
+    "drizzle-orm": "^0.26.0",
     "pg": "^8.10.0",
     "pg-native": "^3.0.1"
   }
