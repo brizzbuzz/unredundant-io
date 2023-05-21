@@ -1,8 +1,9 @@
-name: Vercel Preview Deployment
+name: Preview Deployment
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  NEON_PROJECT_ID: ${{ secrets.NEON_PROJECT_ID }}
   NEON_API_TOKEN: ${{ secrets.NEON_API_TOKEN }}
 on:
   push:
