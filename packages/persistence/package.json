@@ -5,7 +5,7 @@
   "types": "src/index.ts",
   "devDependencies": {
     "@types/pg": "^8.6.6",
-    "drizzle-kit": "^0.17.5",
+    "drizzle-kit": "^0.18.0",
     "tsconfig": "*",
     "typescript": "^5.0.0"
   },
