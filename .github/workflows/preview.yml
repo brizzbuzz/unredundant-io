@@ -104,7 +104,7 @@ jobs:
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
         run: |
-          vercel 
+          vercel \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --build-env DATABASE_HOST=${{ env.DATABASE_HOST }} \
             --build-env DATABASE_NAME=${{ env.DATABASE_NAME }} \
