@@ -1,10 +1,4 @@
 name: Preview Deployment
-env:
-  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  NEON_PROJECT_ID: ${{ secrets.NEON_PROJECT_ID }}
-  NEON_API_TOKEN: ${{ secrets.NEON_API_TOKEN }}
 on:
   push:
     branches-ignore:
@@ -13,7 +7,6 @@ concurrency:
   group: ${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 jobs:
-  # TODO Spin up feature branch in Neon and set ENV vars
   Spawn-Database-Branch:
     runs-on: ubuntu-latest
     name: Spawn Database Branch
@@ -34,10 +27,10 @@ jobs:
         run: |
           mkdir -p $HOME/.config/neonctl
           chmod +x neonctl.kexe
-          ./neonctl.kexe init -t ${{ env.NEON_API_TOKEN }}
+          ./neonctl.kexe init -t ${{ secrets.NEON_API_TOKEN }}
       - name: Spawn Database Branch
         run: |
-          ./neonctl.kexe branch -p ${{ env.NEON_PROJECT_ID }} create | tee branch.json
+          ./neonctl.kexe branch -p ${{ secrets.NEON_PROJECT_ID }} create | tee branch.json
       - name: Set Database Branch Outputs
         id: branch-credentials
         run: | 
