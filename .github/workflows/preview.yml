@@ -14,7 +14,7 @@ jobs:
       BRANCH_DATABASE: ${{ steps.branch-credentials.outputs.BRANCH_DATABASE }}
       BRANCH_HOST: ${{ steps.branch-credentials.outputs.BRANCH_HOST }}
       BRANCH_PASSWORD: ${{ steps.branch-credentials.outputs.BRANCH_PASSWORD }}
-      BRANCH_ROLE: ${{ steps.branch-credentials.outputs.BRANCH_ROLE }}
+      BRANCH_USER: ${{ steps.branch-credentials.outputs.BRANCH_USER }}
     steps:
       - name: Install Neonctl
         run: |
@@ -38,7 +38,7 @@ jobs:
           echo "BRANCH_DATABASE=$(jq -r '.connection_uris[0].connection_parameters.database' branch.json)" >> "$GITHUB_OUTPUT"
           echo "BRANCH_HOST=$(jq -r '.connection_uris[0].connection_parameters.host' branch.json)" >> "$GITHUB_OUTPUT"
           echo "BRANCH_PASSWORD=$(jq -r '.connection_uris[0].connection_parameters.password' branch.json)" >> "$GITHUB_OUTPUT"
-          echo "BRANCH_ROLE=$(jq -r '.connection_uris[0].connection_parameters.role' branch.json)" >> "$GITHUB_OUTPUT"
+          echo "BRANCH_USER=$(jq -r '.connection_uris[0].connection_parameters.role' branch.json)" >> "$GITHUB_OUTPUT"
   Run-Migrations:
     runs-on: ubuntu-latest
     name: Run Migrations
@@ -46,7 +46,7 @@ jobs:
     env:
       DATABASE_HOST: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_HOST }}
       DATABASE_NAME: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_DATABASE }}
-      DATABASE_ROLE: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_ROLE }}
+      DATABASE_USER: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_USER }}
       DATABASE_PASSWORD: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_PASSWORD }}
       DATABASE_SSL_MODE: require
     steps:
@@ -56,7 +56,7 @@ jobs:
       - name: Run Migrations
         run: |
           atlas migrate apply \
-            --url "postgres://${{ env.DATABASE_ROLE }}:${{ env.DATABASE_PASSWORD }}@${{ env.DATABASE_HOST }}/${{ env.DATABASE_NAME }}?ssl_mode=${{ env.DATABASE_SSL_MODE }}&search_path=public" \
+            --url "postgres://${{ env.DATABASE_USER }}:${{ env.DATABASE_PASSWORD }}@${{ env.DATABASE_HOST }}/${{ env.DATABASE_NAME }}?ssl_mode=${{ env.DATABASE_SSL_MODE }}&search_path=public" \
             --dir "file://migrations?format=flyway"
   Deploy-Portfolio-Preview:
     runs-on: ubuntu-latest
@@ -69,7 +69,7 @@ jobs:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       DATABASE_HOST: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_HOST }}
       DATABASE_NAME: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_DATABASE }}
-      DATABASE_ROLE: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_ROLE }}
+      DATABASE_USER: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_USER }}
       DATABASE_PASSWORD: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_PASSWORD }}
       DATABASE_SSL_MODE: require
     steps:
@@ -93,7 +93,7 @@ jobs:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       DATABASE_HOST: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_HOST }}
       DATABASE_NAME: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_DATABASE }}
-      DATABASE_ROLE: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_ROLE }}
+      DATABASE_USER: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_USER }}
       DATABASE_PASSWORD: ${{ needs.Spawn-Database-Branch.outputs.BRANCH_PASSWORD }}
       DATABASE_SSL_MODE: require
     steps:
@@ -107,7 +107,7 @@ jobs:
           vercel build 
             -b DATABASE_HOST=${{ env.DATABASE_HOST }} \
             -b DATABASE_NAME=${{ env.DATABASE_NAME }} \
-            -b DATABASE_USER=${{ env.DATABASE_ROLE }} \
+            -b DATABASE_USER=${{ env.DATABASE_USER }} \
             -b DATABASE_PASSWORD=${{ env.DATABASE_PASSWORD }} \
             -b DATABASE_SSL_MODE=${{ env.DATABASE_SSL_MODE }} \
             --token=${{ secrets.VERCEL_TOKEN }}
