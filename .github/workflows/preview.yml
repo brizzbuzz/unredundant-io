@@ -36,7 +36,7 @@ jobs:
           ./neonctl.kexe init -t ${{ env.NEON_API_TOKEN }}
       - name: Spawn Database Branch
         run: |
-          ./neonctl.kexe branch -P ${{ env.NEON_PROJECT_ID }} create | tee branch.json
+          ./neonctl.kexe branch -p ${{ env.NEON_PROJECT_ID }} create | tee branch.json
       - name: Set Database Branch Outputs
         id: branch-credentials
         run: | 
