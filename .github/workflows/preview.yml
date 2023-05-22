@@ -16,12 +16,38 @@ jobs:
       BRANCH_PASSWORD: ${{ steps.branch-credentials.outputs.BRANCH_PASSWORD }}
       BRANCH_USER: ${{ steps.branch-credentials.outputs.BRANCH_USER }}
     steps:
+      - name: Get Latest Neonctl Release
+        run: |
+          curl -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/unredundant/neonctl/releases/latest \
+            -o neonctl_release.json
+      - name: Get Assets URL
+        uses: sergeysova/jq-action@v2
+        id: get_assets_url
+        with:
+          cmd: jq .assets_url neonctl_release.json -r
+      - name: Get Assets
+        run: |
+          curl -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            ${{ steps.get_assets_url.outputs.value }} \
+            -o assets.json
+      - name: Get Asset ID
+        uses: sergeysova/jq-action@v2
+        id: get_asset_id
+        with:
+          cmd: jq '.[] | select(.name == "neonctl-linux.kexe") | .id' assets.json -r
       - name: Install Neonctl
         run: |
           wget \
             --header="X-GitHub-Api-Version: 2022-11-28" \
             --header='Accept:application/octet-stream' \
-            https://api.github.com/repos/unredundant/neonctl/releases/assets/109043724 \
+            https://api.github.com/repos/unredundant/neonctl/releases/assets/${{ steps.get_asset_id.outputs.value }}  \
             -O neonctl.kexe
       - name: Prep for Neonctl (Delete once bug fixed)
         run: |
@@ -30,8 +56,7 @@ jobs:
       - name: Initialize Neonctl
         run: ./neonctl.kexe init ${{ secrets.NEON_API_TOKEN }}
       - name: Spawn Database Branch
-        run: |
-          ./neonctl.kexe branch -p ${{ secrets.NEON_PROJECT_ID }} create | tee branch.json
+        run: ./neonctl.kexe branch -p ${{ secrets.NEON_PROJECT_ID }} create | tee branch.json
       - name: Set Database Branch Outputs
         id: branch-credentials
         run: | 
@@ -103,7 +128,6 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: |
-          vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
