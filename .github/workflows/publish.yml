@@ -12,6 +12,11 @@ jobs:
   Yoink-Database-Credentials:
     runs-on: ubuntu-latest
     name: Yoink Database Credentials
+    outputs:
+      BRANCH_DATABASE: ${{ steps.branch-credentials.outputs.BRANCH_DATABASE }}
+      BRANCH_HOST: ${{ steps.branch-credentials.outputs.BRANCH_HOST }}
+      BRANCH_PASSWORD: ${{ steps.branch-credentials.outputs.BRANCH_PASSWORD }}
+      BRANCH_USER: ${{ steps.branch-credentials.outputs.BRANCH_USER }}
     steps:
       - name: Get Latest Neonctl Release
         run: |
