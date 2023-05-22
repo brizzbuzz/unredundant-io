@@ -28,7 +28,7 @@ jobs:
         uses: sergeysova/jq-action@v2
         id: get_assets_url
         with:
-          cmd: jq .assets_url assets_url.json -r
+          cmd: jq .assets_url neonctl_release.json -r
       - name: Get Assets
         run: |
           curl -L \
