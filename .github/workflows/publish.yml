@@ -58,9 +58,9 @@ jobs:
         id: branch-credentials
         run: |
           echo "BRANCH_DATABASE=portfolio" >> "$GITHUB_OUTPUT"
-          echo "BRANCH_HOST=$(jq -r '.host' branch.json)" >> "$GITHUB_OUTPUT"
-          echo "BRANCH_PASSWORD=$(jq -r '.password' branch.json)" >> "$GITHUB_OUTPUT"
-          echo "BRANCH_USER=$(jq -r '.role' branch.json)" >> "$GITHUB_OUTPUT"
+          echo "BRANCH_HOST=$(jq -r '.host' endpoint.json)" >> "$GITHUB_OUTPUT"
+          echo "BRANCH_PASSWORD=$(jq -r '.password' endpoint.json)" >> "$GITHUB_OUTPUT"
+          echo "BRANCH_USER=$(jq -r '.role' endpoint.json)" >> "$GITHUB_OUTPUT"
   Run-Migrations:
     runs-on: ubuntu-latest
     name: Run Migrations
