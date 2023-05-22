@@ -64,7 +64,8 @@ jobs:
   Run-Migrations:
     runs-on: ubuntu-latest
     name: Run Migrations
-    needs: Yoink-Database-Credentials
+    needs:
+      - Yoink-Database-Credentials
     env:
       DATABASE_HOST: ${{ needs.Yoink-Database-Credentials.outputs.BRANCH_HOST }}
       DATABASE_NAME: ${{ needs.Yoink-Database-Credentials.outputs.BRANCH_DATABASE }}
