@@ -9,6 +9,8 @@ import horseLady from '@/images/photos/surrealist-horse-woman.jpg'
 import contemplativeLake from '@/images/photos/contemplative-lake-vaguely-japanese-vaporwave.jpg'
 import cathedral from '@/images/photos/impressionist-cathedral-vaporwave.jpg'
 import mask from '@/images/photos/dia-de-meurtos-vaporwave-mask.jpg'
+import tree from '@/images/photos/the-tree-of-data.jpg'
+import bard from '@/images/photos/young-bard-at-terminal.jpg'
 
 const projects = [
   {
@@ -53,6 +55,20 @@ const projects = [
     role: 'maintainer',
     image: mask,
   },
+  {
+    name: 'Skribe',
+    description: 'OpenAPI Client Generator',
+    link: 'https://github.com/bkbnio/skribe',
+    role: 'maintainer',
+    image: bard,
+  },
+  {
+    name: 'Neonctl',
+    description: 'CLI for managing Neon databases',
+    link: 'https://github.com/unredundant/neonctl',
+    role: 'maintainer',
+    image: tree,
+  },
 ]
 
 export default function Projects() {
@@ -85,7 +101,7 @@ const NewCard = ({ project }) => {
       <div>
         <div className="relative grid h-10 grid-cols-2 border-red-300 bg-teal-300 align-middle dark:bg-zinc-800">
           <div>
-            <p className="absolute top-1/2 left-0 ml-4 -translate-y-1/2 transform font-bold text-zinc-700 dark:text-gray-300">
+            <p className="absolute left-0 top-1/2 ml-4 -translate-y-1/2 transform font-bold text-zinc-700 dark:text-gray-300">
               {project.name}
             </p>
           </div>
