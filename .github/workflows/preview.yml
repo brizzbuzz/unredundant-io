@@ -57,6 +57,8 @@ jobs:
         run: ./neonctl.kexe init ${{ secrets.NEON_API_TOKEN }}
       - name: Delete existing Branch if Present
         run: ./neonctl.kexe branch -p ${{ secrets.NEON_PROJECT_ID }} delete -n pr-${{ github.event.pull_request.number }} || true
+      - name: Sleep for a lil bit (neon breaks otherwise, eventually replace with retry)
+        run: sleep 10s
       - name: Spawn Database Branch
         run: ./neonctl.kexe branch -p ${{ secrets.NEON_PROJECT_ID }} create -n pr-${{ github.event.pull_request.number }} | tee branch.json
       - name: Set Database Branch Outputs
