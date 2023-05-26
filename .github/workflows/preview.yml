@@ -54,7 +54,7 @@ jobs:
           chmod +x neonctl.kexe
       - name: Initialize Neonctl
         run: ./neonctl.kexe init ${{ secrets.NEON_API_TOKEN }}
-      - name: Delete existing Branch if Present
+      - name: Delete existing branch if present
         run: ./neonctl.kexe branch -p ${{ secrets.NEON_PROJECT_ID }} delete -n pr-${{ env.PR_NUMBER }} || true
       - name: Sleep for a lil bit (neon breaks otherwise, eventually replace with retry)
         run: sleep 10s
