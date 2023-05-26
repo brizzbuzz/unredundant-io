@@ -1,8 +1,5 @@
 name: Preview Deployment
-on:
-  push:
-    branches-ignore:
-      - main
+on: pull_request
 concurrency:
   group: ${{ github.head_ref || github.ref }}
   cancel-in-progress: true
@@ -10,6 +7,8 @@ jobs:
   Spawn-Database-Branch:
     runs-on: ubuntu-latest
     name: Spawn Database Branch
+    env:
+      PR_NUMBER: ${{ github.event.number }}
     outputs:
       BRANCH_DATABASE: ${{ steps.branch-credentials.outputs.BRANCH_DATABASE }}
       BRANCH_HOST: ${{ steps.branch-credentials.outputs.BRANCH_HOST }}
@@ -55,8 +54,12 @@ jobs:
           chmod +x neonctl.kexe
       - name: Initialize Neonctl
         run: ./neonctl.kexe init ${{ secrets.NEON_API_TOKEN }}
+      - name: Delete existing branch if present
+        run: ./neonctl.kexe branch -p ${{ secrets.NEON_PROJECT_ID }} delete -n pr-${{ env.PR_NUMBER }} || true
+      - name: Sleep for a lil bit (neon breaks otherwise, eventually replace with retry)
+        run: sleep 10s
       - name: Spawn Database Branch
-        run: ./neonctl.kexe branch -p ${{ secrets.NEON_PROJECT_ID }} create | tee branch.json
+        run: ./neonctl.kexe branch -p ${{ secrets.NEON_PROJECT_ID }} create -n pr-${{ env.PR_NUMBER }} | tee branch.json
       - name: Set Database Branch Outputs
         id: branch-credentials
         run: | 
