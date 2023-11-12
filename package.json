@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "build": "dotenv -- turbo build",
-    "dev": "dotenv -- turbo dev",
-    "lint": "dotenv -- turbo lint",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
@@ -12,7 +12,6 @@
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.2.7",
     "turbo": "latest",
-    "dotenv-cli": "^7.2.1",
     "vercel": "latest"
   },
   "name": "unredundant-io",
