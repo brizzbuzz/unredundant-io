@@ -1,8 +1,58 @@
 import avatarImage from '@/images/avatar.jpg'
 import Image from 'next/image'
 import React from 'react'
+import { z } from 'zod'
+import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
+
+const loginFormSchema = z.object({
+  email: z.string().email(),
+  password: z.string(), // TODO: Add better password validation
+})
 
 export default async function Page() {
+  'use server'
+
+  async function handleLogin(data: FormData) {
+    'use server'
+
+    const parseResult = loginFormSchema.safeParse({
+      email: data.get('email'),
+      password: data.get('password'),
+    })
+
+    if (!parseResult.success) {
+      throw new Error('Invalid form data') // TODO: Better error handling
+    }
+
+    const { email, password } = parseResult.data
+
+    const loginResponse = await fetch('http://localhost:8080/auth/sign_in', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+
+    if (loginResponse.status !== 204) {
+      throw new Error('Invalid credentials') // TODO: Better error handling
+    }
+
+    const authToken = loginResponse.headers
+      .getSetCookie()[0]
+      .split('%')[0]
+      .split('=')[1]
+
+    cookies().set('auth_token', authToken, {
+      path: '/',
+      secure: true,
+      httpOnly: true,
+    })
+
+    revalidatePath('/')
+  }
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -15,7 +65,7 @@ export default async function Page() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="/api/auth/login" method="POST">
+          <form className="space-y-6" action={handleLogin}>
             <div>
               <div className="mt-2">
                 <input
